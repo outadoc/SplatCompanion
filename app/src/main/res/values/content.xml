@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="unknown">Unknown</string>
+
+	<string name="rules_rainmaker">Rainmaker</string>
+	<string name="rules_splat_zones">Splat Zones</string>
+
+	<string name="stage_urchin_underpass">Urchin Underpass</string>
+
+</resources>
