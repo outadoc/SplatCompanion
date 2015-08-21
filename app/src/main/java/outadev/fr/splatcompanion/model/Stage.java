@@ -14,8 +14,24 @@ public class Stage {
 	private
 	@DrawableRes int previewResId;
 
-	public Stage(@StringRes int nameResId, @DrawableRes int previewResId) {
+	Stage(@StringRes int nameResId, @DrawableRes int previewResId) {
 		this.nameResId = nameResId;
+		this.previewResId = previewResId;
+	}
+
+	public int getNameResId() {
+		return nameResId;
+	}
+
+	public void setNameResId(int nameResId) {
+		this.nameResId = nameResId;
+	}
+
+	public int getPreviewResId() {
+		return previewResId;
+	}
+
+	public void setPreviewResId(int previewResId) {
 		this.previewResId = previewResId;
 	}
 }

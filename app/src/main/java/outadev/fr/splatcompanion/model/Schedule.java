@@ -1,20 +1,19 @@
 package outadev.fr.splatcompanion.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 /**
  * Created by outadoc on 21/08/15.
  */
-public class Schedule {
+public class Schedule implements Serializable {
 
 	private long startTime;
 	private long endTime;
 
-	private List<GameMode> gameModes;
+	private GameModeRegular regularMode;
+	private GameModeRanked rankedMode;
 
 	public Schedule(long startTime, long endTime) {
-		this.gameModes = new ArrayList<>();
 		this.startTime = startTime;
 		this.endTime = endTime;
 	}
@@ -35,8 +34,19 @@ public class Schedule {
 		this.endTime = endTime;
 	}
 
-	public List<GameMode> getGameModes() {
-		return gameModes;
+	public GameModeRegular getRegularMode() {
+		return regularMode;
 	}
 
+	public void setRegularMode(GameModeRegular regularMode) {
+		this.regularMode = regularMode;
+	}
+
+	public GameModeRanked getRankedMode() {
+		return rankedMode;
+	}
+
+	public void setRankedMode(GameModeRanked rankedMode) {
+		this.rankedMode = rankedMode;
+	}
 }

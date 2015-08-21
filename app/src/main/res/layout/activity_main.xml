@@ -30,17 +30,17 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginRight="5dp"
-			android:text="Next map in"
+			android:layout_marginRight="8dp"
+			android:text="Next stage rotation in"
 			android:textColor="@android:color/white" />
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="3:05:45"
-			android:textStyle="bold"
 			android:textColor="@android:color/white"
-			android:textSize="22sp" />
+			android:textSize="22sp"
+			android:textStyle="bold" />
 
 	</LinearLayout>
 

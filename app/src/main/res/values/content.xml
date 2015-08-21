@@ -3,6 +3,7 @@
 
 	<string name="unknown">Unknown</string>
 
+	<string name="rules_turf_war">Turf War</string>
 	<string name="rules_rainmaker">Rainmaker</string>
 	<string name="rules_splat_zones">Splat Zones</string>
 

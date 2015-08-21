@@ -12,4 +12,9 @@ public class GameModeRegular extends GameMode {
 		return R.string.mode_regular;
 	}
 
+	@Override
+	public int getIconResId() {
+		return R.drawable.ic_stage_regular;
+	}
+
 }

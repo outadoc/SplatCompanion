@@ -10,7 +10,7 @@ public class Rules {
 	private
 	@StringRes int nameResId;
 
-	public Rules(@StringRes int nameResId) {
+	Rules(@StringRes int nameResId) {
 		this.nameResId = nameResId;
 	}
 

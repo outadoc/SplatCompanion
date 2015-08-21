@@ -10,11 +10,13 @@ public abstract class GameMode {
 
 	private List<Stage> stages;
 
-	public GameMode() {
+	GameMode() {
 		this.stages = new ArrayList<>();
 	}
 
 	public abstract int getNameResId();
+
+	public abstract int getIconResId();
 
 	public List<Stage> getStages() {
 		return stages;

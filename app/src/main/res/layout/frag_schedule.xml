@@ -25,6 +25,7 @@
 				android:orientation="horizontal">
 
 				<ImageView
+					android:id="@+id/game_mode_icon"
 					android:layout_width="60dp"
 					android:layout_height="60dp"
 					android:layout_marginRight="10dp"
@@ -41,7 +42,13 @@
 
 			</LinearLayout>
 
-			<include layout="@layout/stage_card" />
+			<LinearLayout
+				android:id="@+id/stages_container"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+
+			</LinearLayout>
 
 		</LinearLayout>
 
