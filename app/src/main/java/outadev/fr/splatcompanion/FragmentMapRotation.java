@@ -19,8 +19,13 @@ public class FragmentMapRotation extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.frag_schedule, container, false);
 		Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "project_paintball_beta_2.otf");
+
 		TextView txtGameMode = (TextView) view.findViewById(R.id.game_mode_title);
+		TextView txtMapName = (TextView) view.findViewById(R.id.map1_title);
+
 		txtGameMode.setTypeface(typeface);
+		txtMapName.setTypeface(typeface);
+
 		return view;
 	}
 
