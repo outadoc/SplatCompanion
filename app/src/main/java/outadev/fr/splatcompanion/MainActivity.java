@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
 			switch (position) {
 				case 0:
 				default:
-					return "Turf War";
+					return "Regular";
 				case 1:
-					return "Splat Zones";
+					return "Ranked";
 			}
 		}
 	}
