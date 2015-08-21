@@ -1,6 +1,6 @@
 package outadev.fr.splatcompanion.model;
 
-import android.support.annotation.StringRes;
+import outadev.fr.splatcompanion.R;
 
 /**
  * Created by outadoc on 21/08/15.
@@ -9,9 +9,9 @@ public class GameModeRanked extends GameMode {
 
 	private Rules gameRules;
 
-	public GameModeRanked(@StringRes int nameResId, Rules gameRules) {
-		super(nameResId);
-		this.gameRules = gameRules;
+	@Override
+	public int getNameResId() {
+		return R.string.mode_ranked;
 	}
 
 	public Rules getGameRules() {

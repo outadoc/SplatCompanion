@@ -1,14 +1,15 @@
 package outadev.fr.splatcompanion.model;
 
-import android.support.annotation.StringRes;
+import outadev.fr.splatcompanion.R;
 
 /**
  * Created by outadoc on 21/08/15.
  */
 public class GameModeRegular extends GameMode {
 
-	public GameModeRegular(@StringRes int nameResId) {
-		super(nameResId);
+	@Override
+	public int getNameResId() {
+		return R.string.mode_regular;
 	}
 
 }

@@ -8,4 +8,7 @@
 
 	<string name="stage_urchin_underpass">Urchin Underpass</string>
 
+	<string name="mode_regular">Regular</string>
+	<string name="mode_ranked">Ranked</string>
+
 </resources>
