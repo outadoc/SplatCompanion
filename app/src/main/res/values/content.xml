@@ -6,8 +6,19 @@
 	<string name="rules_turf_war">Turf War</string>
 	<string name="rules_rainmaker">Rainmaker</string>
 	<string name="rules_splat_zones">Splat Zones</string>
+	<string name="rules_tower_control">Tower Control</string>
 
+	<string name="stage_arowana_mall">Arowana Mall</string>
+	<string name="stage_blackbelly_skatepark">Blackbelly Skatepark</string>
+	<string name="stage_bluefin_depot">Bluefin Depot</string>
+	<string name="stage_camp_triggerfish">Camp Triggerfish</string>
+	<string name="stage_flounder_heights">Flounder Heights</string>
+	<string name="stage_kelp_dome">Kelp Dome</string>
+	<string name="stage_moray_towers">Moray Towers</string>
+	<string name="stage_port_mackerel">Port Mackerel</string>
+	<string name="stage_saltspray_rig">Saltspray Rig</string>
 	<string name="stage_urchin_underpass">Urchin Underpass</string>
+	<string name="stage_walleye_warehouse">Walleye Warehouse</string>
 
 	<string name="mode_regular">Regular</string>
 	<string name="mode_ranked">Ranked</string>

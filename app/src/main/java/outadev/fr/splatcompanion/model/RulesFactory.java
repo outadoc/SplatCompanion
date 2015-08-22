@@ -20,6 +20,10 @@ public abstract class RulesFactory {
 				return new Rules(R.string.rules_rainmaker);
 			case "SPLAT ZONES":
 				return new Rules(R.string.rules_splat_zones);
+			case "TOWER CONTROL":
+				return new Rules(R.string.rules_tower_control);
+			case "TURF WAR":
+				return new Rules(R.string.rules_turf_war);
 			default:
 				return new Rules(R.string.unknown);
 		}
