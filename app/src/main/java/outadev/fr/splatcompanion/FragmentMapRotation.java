@@ -43,6 +43,10 @@ public abstract class FragmentMapRotation extends Fragment {
 		imgGameModeIcon = (ImageView) view.findViewById(R.id.game_mode_icon);
 		stagesContainer = (ViewGroup) view.findViewById(R.id.stages_container);
 
+		if(schedule != null) {
+			displaySchedule();
+		}
+
 		return view;
 	}
 
@@ -77,7 +81,10 @@ public abstract class FragmentMapRotation extends Fragment {
 
 	protected void updateSchedule(Schedule schedule) {
 		this.schedule = schedule;
-		displaySchedule();
+
+		if(getView() != null) {
+			displaySchedule();
+		}
 	}
 
 }

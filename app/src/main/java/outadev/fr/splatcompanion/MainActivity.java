@@ -11,8 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import org.json.JSONException;
 
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import outadev.fr.splatcompanion.model.Schedule;
 
@@ -35,20 +33,9 @@ public class MainActivity extends AppCompatActivity {
 		viewPager.setAdapter(new SectionPagerAdapter(getSupportFragmentManager()));
 		tabLayout.setupWithViewPager(viewPager);
 
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				MainActivity.this.runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						Schedule sched = getDummySchedule();
-						fragmentRegularBattles.updateSchedule(sched);
-						fragmentRankedBattles.updateSchedule(sched);
-					}
-				});
-			}
-		}, 1000);
+		Schedule sched = getDummySchedule();
+		fragmentRegularBattles.updateSchedule(sched);
+		fragmentRankedBattles.updateSchedule(sched);
 	}
 
 	private Schedule getDummySchedule() {
