@@ -21,6 +21,8 @@ import outadev.fr.splatcompanion.model.Stage;
  */
 public abstract class FragmentMapRotation extends Fragment {
 
+	public static final String KEY_SCHEDULE = "schedule";
+
 	protected Typeface typeface;
 	protected Schedule schedule;
 
@@ -32,6 +34,10 @@ public abstract class FragmentMapRotation extends Fragment {
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		typeface = Typeface.createFromAsset(getContext().getAssets(), "project_paintball_beta_2.otf");
+
+		if(savedInstanceState != null && savedInstanceState.containsKey(KEY_SCHEDULE)) {
+			schedule = (Schedule) savedInstanceState.getSerializable(KEY_SCHEDULE);
+		}
 	}
 
 	@Nullable
@@ -48,6 +54,12 @@ public abstract class FragmentMapRotation extends Fragment {
 		}
 
 		return view;
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putSerializable(KEY_SCHEDULE, schedule);
 	}
 
 	protected abstract GameMode getActiveMode();
