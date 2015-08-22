@@ -26,4 +26,12 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 		assertEquals(3, schedules.size());
 	}
 
+	public void testParseEmptySchedule() throws JSONException {
+		String rawJson = "{\"updateTime\":1440242244200,\"schedule\":[]}";
+		List<Schedule> schedules = MapRotationUpdater.parseSchedules(rawJson);
+
+		assertNotNull(schedules);
+		assertEquals(0, schedules.size());
+	}
+
 }
