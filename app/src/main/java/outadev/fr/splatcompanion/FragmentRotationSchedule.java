@@ -49,6 +49,8 @@ public abstract class FragmentRotationSchedule extends Fragment {
 		imgGameModeIcon = (ImageView) view.findViewById(R.id.game_mode_icon);
 		stagesContainer = (ViewGroup) view.findViewById(R.id.stages_container);
 
+		txtGameMode.setTypeface(typeface);
+
 		if(schedule != null) {
 			displaySchedule();
 		}
@@ -80,9 +82,7 @@ public abstract class FragmentRotationSchedule extends Fragment {
 
 		LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-		txtGameMode.setTypeface(typeface);
 		imgGameModeIcon.setImageResource(getActiveMode().getIconResId());
-
 		stagesContainer.removeAllViews();
 
 		for(Stage stage : getActiveMode().getStages()) {
@@ -90,8 +90,6 @@ public abstract class FragmentRotationSchedule extends Fragment {
 
 			TextView txtMapName = (TextView) stageView.findViewById(R.id.txt_map_title);
 			ImageView imgMapPreview = (ImageView) stageView.findViewById(R.id.img_stage);
-
-			txtMapName.setTypeface(typeface);
 
 			txtMapName.setText(stage.getNameResId());
 			imgMapPreview.setImageResource(stage.getPreviewResId());
