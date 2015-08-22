@@ -11,7 +11,7 @@ public abstract class GameMode implements Serializable {
 
 	private List<Stage> stages;
 
-	GameMode() {
+	public GameMode() {
 		this.stages = new ArrayList<>();
 	}
 

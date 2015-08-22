@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import outadev.fr.splatcompanion.model.GameModeFactory;
 import outadev.fr.splatcompanion.model.GameModeRanked;
 import outadev.fr.splatcompanion.model.GameModeRegular;
 import outadev.fr.splatcompanion.model.RulesFactory;
@@ -32,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
 	private Schedule getDummySchedule() {
 		Schedule schedule = new Schedule(System.currentTimeMillis(), System.currentTimeMillis() + 1000 * 60);
 
-		GameModeRegular regular = (GameModeRegular) GameModeFactory.create("regular");
-		GameModeRanked ranked = (GameModeRanked) GameModeFactory.create("ranked");
+		GameModeRegular regular = new GameModeRegular();
+		GameModeRanked ranked = new GameModeRanked();
 
 		regular.getStages().add(StageFactory.create("Urchin Underpass"));
 		regular.getStages().add(StageFactory.create("Urchin Underpass"));
