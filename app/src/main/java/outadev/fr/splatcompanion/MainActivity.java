@@ -1,5 +1,7 @@
 package outadev.fr.splatcompanion;
 
+import android.app.AlertDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -50,9 +53,9 @@ public class MainActivity extends AppCompatActivity {
 
 		countdown = (TextView) findViewById(R.id.txt_countdown);
 
-		schedule = getDummySchedule();
-		fragmentRegularBattles.updateSchedule(schedule);
-		fragmentRankedBattles.updateSchedule(schedule);
+		if(savedInstanceState == null) {
+			(new FetchRotationSchedule()).execute();
+		}
 	}
 
 	@Override
@@ -81,6 +84,14 @@ public class MainActivity extends AppCompatActivity {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public void displayErrorMessage(String title, String message) {
+		(new AlertDialog.Builder(this)
+				.setTitle(title)
+				.setMessage(message))
+				.setPositiveButton(android.R.string.ok, null)
+				.show();
 	}
 
 	public class SectionPagerAdapter extends FragmentPagerAdapter {
@@ -122,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 		@Override
 		public void run() {
 			if(schedule == null) {
-				this.cancel();
+				return;
 			}
 
 			MainActivity.this.runOnUiThread(new Runnable() {
@@ -140,6 +151,55 @@ public class MainActivity extends AppCompatActivity {
 				}
 			});
 		}
+	}
+
+	private class FetchRotationSchedule extends AsyncTask<Void, Void, String> {
+
+		private Exception e;
+
+		@Override
+		protected String doInBackground(Void... params) {
+			try {
+				return MapRotationUpdater.getScheduleDataFromAPI();
+			} catch(IOException e) {
+				this.e = e;
+				e.printStackTrace();
+				return null;
+			}
+		}
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
+
+		@Override
+		protected void onPostExecute(String s) {
+			super.onPostExecute(s);
+
+			if(e != null) {
+				displayErrorMessage("Error", e.getMessage());
+			}
+
+			try {
+				List<Schedule> schedules = MapRotationUpdater.parseSchedules(s);
+
+				if(schedules.isEmpty()) {
+					displayErrorMessage("Can't get current stages",
+							"We couldn't get the current stages right now. Maybe there's a Splatfest going on?");
+					return;
+				}
+
+				schedule = schedules.get(0);
+
+				fragmentRegularBattles.updateSchedule(schedule);
+				fragmentRankedBattles.updateSchedule(schedule);
+			} catch(JSONException e) {
+				e.printStackTrace();
+				displayErrorMessage("Error", e.getMessage());
+			}
+		}
+
 	}
 
 }

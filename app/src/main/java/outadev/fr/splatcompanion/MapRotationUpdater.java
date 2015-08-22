@@ -1,9 +1,14 @@
 package outadev.fr.splatcompanion;
 
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +23,24 @@ import outadev.fr.splatcompanion.model.StageFactory;
  * Manages the retrieval of map rotation schedules from the API.
  */
 public class MapRotationUpdater {
+
+	public static final String SCHEDULE_ENDPOINT_URL = "https://splatoon.ink/schedule.json";
+
+	private static final OkHttpClient client = new OkHttpClient();
+
+	/**
+	 * Retrieves the freshest schedule from the API
+	 * @return The raw response from the API
+	 * @throws IOException
+	 */
+	public static String getScheduleDataFromAPI() throws IOException {
+		Request request = new Request.Builder()
+				.url(SCHEDULE_ENDPOINT_URL)
+				.build();
+
+		Response response = client.newCall(request).execute();
+		return response.body().string();
+	}
 
 	/**
 	 * Parses the schedules of the current and next Splatoon map rotations.
