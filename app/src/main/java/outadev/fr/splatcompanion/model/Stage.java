@@ -3,10 +3,12 @@ package outadev.fr.splatcompanion.model;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 
+import java.io.Serializable;
+
 /**
  * Created by outadoc on 21/08/15.
  */
-public class Stage {
+public class Stage implements Serializable {
 
 	private
 	@StringRes int nameResId;

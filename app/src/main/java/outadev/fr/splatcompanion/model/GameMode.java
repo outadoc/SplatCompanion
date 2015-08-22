@@ -1,12 +1,13 @@
 package outadev.fr.splatcompanion.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by outadoc on 21/08/15.
  */
-public abstract class GameMode {
+public abstract class GameMode implements Serializable {
 
 	private List<Stage> stages;
 
