@@ -17,9 +17,9 @@ import outadev.fr.splatcompanion.model.Schedule;
 import outadev.fr.splatcompanion.model.Stage;
 
 /**
- * Created by outadoc on 21/08/15.
+ * A base fragment that presents a rotation schedule to the user.
  */
-public abstract class FragmentMapRotation extends Fragment {
+public abstract class FragmentRotationSchedule extends Fragment {
 
 	public static final String KEY_SCHEDULE = "schedule";
 
@@ -62,15 +62,23 @@ public abstract class FragmentMapRotation extends Fragment {
 		outState.putSerializable(KEY_SCHEDULE, schedule);
 	}
 
+	/**
+	 * Gets the active game mode for this fragment (regular or ranked).
+	 * @return
+	 */
 	protected abstract GameMode getActiveMode();
 
+	/**
+	 * Displays the current stages on the view.
+	 * schedule must not be null
+	 */
 	protected void displaySchedule() {
 		if(schedule == null) {
-			Log.e(FragmentMapRotation.class.getName(), "displaySchedule called with schedule == null");
+			Log.e(FragmentRotationSchedule.class.getName(), "displaySchedule called with schedule == null");
 			return;
 		}
 
-		LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE );
+		LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		txtGameMode.setTypeface(typeface);
 		imgGameModeIcon.setImageResource(getActiveMode().getIconResId());
@@ -91,6 +99,10 @@ public abstract class FragmentMapRotation extends Fragment {
 		}
 	}
 
+	/**
+	 * Updates the schedule. The view will be updated as soon as possible.
+	 * @param schedule
+	 */
 	protected void updateSchedule(Schedule schedule) {
 		this.schedule = schedule;
 

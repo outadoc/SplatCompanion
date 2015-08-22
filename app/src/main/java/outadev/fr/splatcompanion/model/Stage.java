@@ -6,7 +6,7 @@ import android.support.annotation.StringRes;
 import java.io.Serializable;
 
 /**
- * Created by outadoc on 21/08/15.
+ * A stage, or map. It has a name and a corresponding drawable.
  */
 public class Stage implements Serializable {
 

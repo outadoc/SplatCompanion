@@ -11,7 +11,7 @@ import outadev.fr.splatcompanion.model.GameMode;
 /**
  * Created by outadoc on 21/08/15.
  */
-public class FragmentRankedBattles extends FragmentMapRotation {
+public class FragmentRankedBattles extends FragmentRotationSchedule {
 
 	@Nullable
 	@Override

@@ -5,7 +5,8 @@ import android.support.annotation.StringRes;
 import java.io.Serializable;
 
 /**
- * Created by outadoc on 21/08/15.
+ * The game rules. Used for the ranked game mode.
+ * Example: Splat Zones, Rainmaker...
  */
 public class Rules implements Serializable {
 

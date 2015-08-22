@@ -3,7 +3,7 @@ package outadev.fr.splatcompanion.model;
 import outadev.fr.splatcompanion.R;
 
 /**
- * Created by outadoc on 21/08/15.
+ * The "ranked" game mode.
  */
 public class GameModeRanked extends GameMode {
 

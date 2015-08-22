@@ -3,7 +3,8 @@ package outadev.fr.splatcompanion.model;
 import java.io.Serializable;
 
 /**
- * Created by outadoc on 21/08/15.
+ * A rotation schedule. It has a start time, an end time, and contains
+ * game modes with their stages.
  */
 public class Schedule implements Serializable {
 

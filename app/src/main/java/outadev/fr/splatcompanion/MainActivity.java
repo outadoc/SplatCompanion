@@ -17,6 +17,10 @@ import java.util.TimerTask;
 
 import outadev.fr.splatcompanion.model.Schedule;
 
+/**
+ * The main activity of the app.
+ * Contains a view pager with fragments to present the schedules.
+ */
 public class MainActivity extends AppCompatActivity {
 
 	public static final int TIMER_UPDATE_INTERVAL = 1000;
@@ -124,12 +128,14 @@ public class MainActivity extends AppCompatActivity {
 			MainActivity.this.runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
+					// Calculate the hours/minutes/seconds until the next map rotation
 					long millisToEnd = schedule.getEndTime() - System.currentTimeMillis();
 
 					int seconds = (int) (millisToEnd / 1000) % 60;
 					int minutes = (int) ((millisToEnd / (1000 * 60)) % 60);
 					int hours = (int) ((millisToEnd / (1000 * 60 * 60)) % 24);
 
+					// Display a countdown until the rotation
 					countdown.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
 				}
 			});

@@ -3,7 +3,7 @@ package outadev.fr.splatcompanion.model;
 import outadev.fr.splatcompanion.R;
 
 /**
- * Created by outadoc on 21/08/15.
+ * The "regular" game mode.
  */
 public class GameModeRegular extends GameMode {
 

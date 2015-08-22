@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by outadoc on 21/08/15.
+ * A game mode.
+ * Example: regular or ranked.
  */
 public abstract class GameMode implements Serializable {
 

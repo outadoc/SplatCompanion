@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import outadev.fr.splatcompanion.R;
 
 /**
- * Created by outadoc on 21/08/15.
+ * Facilitates the creation of game rules.
  */
 public abstract class RulesFactory {
 

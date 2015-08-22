@@ -15,10 +15,18 @@ import outadev.fr.splatcompanion.model.Stage;
 import outadev.fr.splatcompanion.model.StageFactory;
 
 /**
- * Created by outadoc on 22/08/15.
+ * Manages the retrieval of map rotation schedules from the API.
  */
 public class MapRotationUpdater {
 
+	/**
+	 * Parses the schedules of the current and next Splatoon map rotations.
+	 * This method parses the JSON data and creates the required objects corresponding to the data.
+	 *
+	 * @param rawJson The raw JSON data returned by the API
+	 * @return A list of schedules containing the parsed data
+	 * @throws JSONException
+	 */
 	public static List<Schedule> parseSchedules(String rawJson) throws JSONException {
 		List<Schedule> schedules = new ArrayList<>();
 

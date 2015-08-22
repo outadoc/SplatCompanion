@@ -5,10 +5,15 @@ import android.support.annotation.NonNull;
 import outadev.fr.splatcompanion.R;
 
 /**
- * Created by outadoc on 21/08/15.
+ * Facilitates the creation of stages.
  */
 public abstract class StageFactory {
 
+	/**
+	 * Creates a stage using its English name.
+	 * @param stageName The English version of the stage's name.
+	 * @return The corresponding stage.
+	 */
 	public static Stage create(@NonNull String stageName) {
 		switch(stageName.trim().toUpperCase()) {
 			case "AROWANA MALL":
