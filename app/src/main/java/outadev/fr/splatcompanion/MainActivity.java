@@ -8,6 +8,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import org.json.JSONException;
+
+import java.util.List;
+
 import outadev.fr.splatcompanion.model.GameModeRanked;
 import outadev.fr.splatcompanion.model.GameModeRegular;
 import outadev.fr.splatcompanion.model.RulesFactory;
@@ -29,21 +33,31 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private Schedule getDummySchedule() {
-		Schedule schedule = new Schedule(System.currentTimeMillis(), System.currentTimeMillis() + 1000 * 60);
 
-		GameModeRegular regular = new GameModeRegular();
-		GameModeRanked ranked = new GameModeRanked();
+		try {
+			String rawJson = "{\"updateTime\":1440151275135,\"schedule\":[{\"startTime\":1440151200000,\"endTime\":1440165600000,\"regular\":{\"maps\":[{\"nameJP\":\"ネギトロ炭鉱\",\"nameEN\":\"Bluefin Depot\"},{\"nameJP\":\"ヒラメが丘団地\",\"nameEN\":\"Flounder Heights\"}]},\"ranked\":{\"maps\":[{\"nameJP\":\"モンガラキャンプ場\",\"nameEN\":\"Camp Triggerfish\"},{\"nameJP\":\"ヒラメが丘団地\",\"nameEN\":\"Flounder Heights\"}],\"rulesJP\":\"ガチヤグラ\",\"rulesEN\":\"Tower Control\"}},{\"startTime\":1440165600000,\"endTime\":1440180000000,\"regular\":{\"maps\":[{\"nameJP\":\"デカライン高架下\",\"nameEN\":\"Urchin Underpass\"},{\"nameJP\":\"ヒラメが丘団地\",\"nameEN\":\"Flounder Heights\"}]},\"ranked\":{\"maps\":[{\"nameJP\":\"タチウオパーキング\",\"nameEN\":\"Moray Towers\"},{\"nameJP\":\"ヒラメが丘団地\",\"nameEN\":\"Flounder Heights\"}],\"rulesJP\":\"ガチホコ\",\"rulesEN\":\"Rainmaker\"}},{\"startTime\":1440180000000,\"endTime\":1440194400000,\"regular\":{\"maps\":[{\"nameJP\":\"ハコフグ倉庫\",\"nameEN\":\"Walleye Warehouse\"},{\"nameJP\":\"ヒラメが丘団地\",\"nameEN\":\"Flounder Heights\"}]},\"ranked\":{\"maps\":[{\"nameJP\":\"ホッケふ頭\",\"nameEN\":\"Port Mackerel\"},{\"nameJP\":\"ヒラメが丘団地\",\"nameEN\":\"Flounder Heights\"}],\"rulesJP\":\"ガチエリア\",\"rulesEN\":\"Splat Zones\"}}]}";
+			List<Schedule> schedules = MapRotationUpdater.parseSchedules(rawJson);
+			return schedules.get(0);
+		} catch(JSONException e) {
+			e.printStackTrace();
 
-		regular.getStages().add(StageFactory.create("Urchin Underpass"));
-		regular.getStages().add(StageFactory.create("Urchin Underpass"));
+			// Return a dummy schedule anyway :<
+			Schedule schedule = new Schedule(System.currentTimeMillis(), System.currentTimeMillis() + 1000 * 60);
 
-		ranked.setGameRules(RulesFactory.create("Splat Zones"));
-		ranked.getStages().add(StageFactory.create("Urchin Underpass"));
+			GameModeRegular regular = new GameModeRegular();
+			GameModeRanked ranked = new GameModeRanked();
 
-		schedule.setRankedMode(ranked);
-		schedule.setRegularMode(regular);
+			regular.getStages().add(StageFactory.create("Urchin Underpass"));
+			regular.getStages().add(StageFactory.create("Urchin Underpass"));
 
-		return schedule;
+			ranked.setGameRules(RulesFactory.create("Splat Zones"));
+			ranked.getStages().add(StageFactory.create("Urchin Underpass"));
+
+			schedule.setRankedMode(ranked);
+			schedule.setRegularMode(regular);
+
+			return schedule;
+		}
 	}
 
 	public class SectionPagerAdapter extends FragmentPagerAdapter {
@@ -59,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 			Bundle bundle = new Bundle();
 			bundle.putSerializable("schedule", getDummySchedule());
 
-			switch (position) {
+			switch(position) {
 				case 0:
 				default:
 					frag = new FragmentRegularBattles();
@@ -80,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
 		@Override
 		public CharSequence getPageTitle(int position) {
-			switch (position) {
+			switch(position) {
 				case 0:
 				default:
 					return "Regular";
