@@ -1,9 +1,11 @@
 package outadev.fr.splatcompanion;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +24,14 @@ public abstract class FragmentMapRotation extends Fragment {
 	protected Typeface typeface;
 	protected Schedule schedule;
 
+	protected TextView txtGameMode;
+	protected ImageView imgGameModeIcon;
+	protected ViewGroup stagesContainer;
+
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		typeface = Typeface.createFromAsset(getContext().getAssets(), "project_paintball_beta_2.otf");
-		schedule = (Schedule) getArguments().getSerializable("schedule");
 	}
 
 	@Nullable
@@ -34,13 +39,26 @@ public abstract class FragmentMapRotation extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.frag_schedule, container, false);
 
-		TextView txtGameMode = (TextView) view.findViewById(R.id.game_mode_title);
-		txtGameMode.setTypeface(typeface);
+		txtGameMode = (TextView) view.findViewById(R.id.game_mode_title);
+		imgGameModeIcon = (ImageView) view.findViewById(R.id.game_mode_icon);
+		stagesContainer = (ViewGroup) view.findViewById(R.id.stages_container);
 
-		ImageView imgGameModeIcon = (ImageView) view.findViewById(R.id.game_mode_icon);
+		return view;
+	}
+
+	protected abstract GameMode getActiveMode();
+
+	protected void displaySchedule() {
+		if(schedule == null) {
+			Log.e(FragmentMapRotation.class.getName(), "displaySchedule called with schedule == null");
+			return;
+		}
+
+		LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE );
+
+		txtGameMode.setTypeface(typeface);
 		imgGameModeIcon.setImageResource(getActiveMode().getIconResId());
 
-		ViewGroup stagesContainer = (ViewGroup) view.findViewById(R.id.stages_container);
 		stagesContainer.removeAllViews();
 
 		for(Stage stage : getActiveMode().getStages()) {
@@ -55,10 +73,11 @@ public abstract class FragmentMapRotation extends Fragment {
 			imgMapPreview.setImageResource(stage.getPreviewResId());
 			stagesContainer.addView(stageView);
 		}
-
-		return view;
 	}
 
-	protected abstract GameMode getActiveMode();
+	protected void updateSchedule(Schedule schedule) {
+		this.schedule = schedule;
+		displaySchedule();
+	}
 
 }

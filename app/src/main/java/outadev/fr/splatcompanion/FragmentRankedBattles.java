@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import outadev.fr.splatcompanion.model.GameMode;
 
@@ -14,20 +13,22 @@ import outadev.fr.splatcompanion.model.GameMode;
  */
 public class FragmentRankedBattles extends FragmentMapRotation {
 
+	@Nullable
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = super.onCreateView(inflater, container, savedInstanceState);
+		txtGameMode.setText(R.string.mode_ranked);
+		return view;
+	}
+
 	@Override
 	protected GameMode getActiveMode() {
 		return schedule.getRankedMode();
 	}
 
-	@Nullable
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = super.onCreateView(inflater, container, savedInstanceState);
-
-		TextView txtGameModeTitle = (TextView) view.findViewById(R.id.game_mode_title);
-		txtGameModeTitle.setText(schedule.getRankedMode().getGameRules().getNameResId());
-
-		return view;
+	protected void displaySchedule() {
+		super.displaySchedule();
+		txtGameMode.setText(schedule.getRankedMode().getGameRules().getNameResId());
 	}
-
 }
