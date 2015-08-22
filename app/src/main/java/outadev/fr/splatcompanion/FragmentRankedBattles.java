@@ -17,7 +17,11 @@ public class FragmentRankedBattles extends FragmentMapRotation {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = super.onCreateView(inflater, container, savedInstanceState);
-		txtGameMode.setText(R.string.mode_ranked);
+
+		if(schedule == null) {
+			txtGameMode.setText(R.string.mode_ranked);
+		}
+
 		return view;
 	}
 
