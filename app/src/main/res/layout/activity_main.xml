@@ -31,13 +31,15 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginRight="8dp"
-			android:text="Next stage rotation in"
-			android:textColor="@android:color/white" />
+			android:text="Next rotation in"
+			android:textColor="@android:color/white"
+			android:textSize="16sp" />
 
 		<TextView
+			android:id="@+id/txt_countdown"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="3:05:45"
+			android:text="--:--:--"
 			android:textColor="@android:color/white"
 			android:textSize="22sp"
 			android:textStyle="bold" />

@@ -7,10 +7,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
 import org.json.JSONException;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import outadev.fr.splatcompanion.model.Schedule;
 
@@ -18,6 +21,33 @@ public class MainActivity extends AppCompatActivity {
 
 	private FragmentRegularBattles fragmentRegularBattles;
 	private FragmentRankedBattles fragmentRankedBattles;
+
+	private TextView countdown;
+	private Schedule schedule;
+
+	private Timer timer;
+
+	private TimerTask countdownTask = new TimerTask() {
+		@Override
+		public void run() {
+			if(schedule == null) {
+				this.cancel();
+			}
+
+			MainActivity.this.runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					long millisToEnd = schedule.getEndTime() - System.currentTimeMillis();
+
+					int seconds = (int) (millisToEnd / 1000) % 60;
+					int minutes = (int) ((millisToEnd / (1000 * 60)) % 60);
+					int hours = (int) ((millisToEnd / (1000 * 60 * 60)) % 24);
+
+					countdown.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
+				}
+			});
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +63,22 @@ public class MainActivity extends AppCompatActivity {
 		viewPager.setAdapter(new SectionPagerAdapter(getSupportFragmentManager()));
 		tabLayout.setupWithViewPager(viewPager);
 
-		Schedule sched = getDummySchedule();
-		fragmentRegularBattles.updateSchedule(sched);
-		fragmentRankedBattles.updateSchedule(sched);
+		countdown = (TextView) findViewById(R.id.txt_countdown);
+
+		schedule = getDummySchedule();
+		fragmentRegularBattles.updateSchedule(schedule);
+		fragmentRankedBattles.updateSchedule(schedule);
+
+		timer = new Timer();
+		timer.schedule(countdownTask, 0, 1000);
 	}
 
 	private Schedule getDummySchedule() {
 		try {
 			String rawJson = "{\"updateTime\":1440151275135,\"schedule\":[{\"startTime\":1440151200000,\"endTime\":1440165600000,\"regular\":{\"maps\":[{\"nameJP\":\"ネギトロ炭鉱\",\"nameEN\":\"Bluefin Depot\"},{\"nameJP\":\"ヒラメが丘団地\",\"nameEN\":\"Flounder Heights\"}]},\"ranked\":{\"maps\":[{\"nameJP\":\"モンガラキャンプ場\",\"nameEN\":\"Camp Triggerfish\"},{\"nameJP\":\"ヒラメが丘団地\",\"nameEN\":\"Flounder Heights\"}],\"rulesJP\":\"ガチヤグラ\",\"rulesEN\":\"Tower Control\"}},{\"startTime\":1440165600000,\"endTime\":1440180000000,\"regular\":{\"maps\":[{\"nameJP\":\"デカライン高架下\",\"nameEN\":\"Urchin Underpass\"},{\"nameJP\":\"ヒラメが丘団地\",\"nameEN\":\"Flounder Heights\"}]},\"ranked\":{\"maps\":[{\"nameJP\":\"タチウオパーキング\",\"nameEN\":\"Moray Towers\"},{\"nameJP\":\"ヒラメが丘団地\",\"nameEN\":\"Flounder Heights\"}],\"rulesJP\":\"ガチホコ\",\"rulesEN\":\"Rainmaker\"}},{\"startTime\":1440180000000,\"endTime\":1440194400000,\"regular\":{\"maps\":[{\"nameJP\":\"ハコフグ倉庫\",\"nameEN\":\"Walleye Warehouse\"},{\"nameJP\":\"ヒラメが丘団地\",\"nameEN\":\"Flounder Heights\"}]},\"ranked\":{\"maps\":[{\"nameJP\":\"ホッケふ頭\",\"nameEN\":\"Port Mackerel\"},{\"nameJP\":\"ヒラメが丘団地\",\"nameEN\":\"Flounder Heights\"}],\"rulesJP\":\"ガチエリア\",\"rulesEN\":\"Splat Zones\"}}]}";
 			List<Schedule> schedules = MapRotationUpdater.parseSchedules(rawJson);
+			// Set end time to 4 hours from now
+			schedules.get(0).setEndTime(System.currentTimeMillis() + 1000 * 60 * 60 * 4);
 			return schedules.get(0);
 		} catch(JSONException e) {
 			e.printStackTrace();
