@@ -19,6 +19,8 @@ import outadev.fr.splatcompanion.model.Schedule;
 
 public class MainActivity extends AppCompatActivity {
 
+	public static final int TIMER_UPDATE_INTERVAL = 1000;
+
 	private FragmentRegularBattles fragmentRegularBattles;
 	private FragmentRankedBattles fragmentRankedBattles;
 
@@ -26,28 +28,7 @@ public class MainActivity extends AppCompatActivity {
 	private Schedule schedule;
 
 	private Timer timer;
-
-	private TimerTask countdownTask = new TimerTask() {
-		@Override
-		public void run() {
-			if(schedule == null) {
-				this.cancel();
-			}
-
-			MainActivity.this.runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					long millisToEnd = schedule.getEndTime() - System.currentTimeMillis();
-
-					int seconds = (int) (millisToEnd / 1000) % 60;
-					int minutes = (int) ((millisToEnd / (1000 * 60)) % 60);
-					int hours = (int) ((millisToEnd / (1000 * 60 * 60)) % 24);
-
-					countdown.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
-				}
-			});
-		}
-	};
+	private TimerTask countdownTask;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +49,21 @@ public class MainActivity extends AppCompatActivity {
 		schedule = getDummySchedule();
 		fragmentRegularBattles.updateSchedule(schedule);
 		fragmentRankedBattles.updateSchedule(schedule);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		timer.cancel();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		countdownTask = new UpdateCountdownTimerTask();
 
 		timer = new Timer();
-		timer.schedule(countdownTask, 0, 1000);
+		timer.schedule(countdownTask, 0, TIMER_UPDATE_INTERVAL);
 	}
 
 	private Schedule getDummySchedule() {
@@ -120,5 +113,27 @@ public class MainActivity extends AppCompatActivity {
 		}
 	}
 
+	private class UpdateCountdownTimerTask extends TimerTask {
+
+		@Override
+		public void run() {
+			if(schedule == null) {
+				this.cancel();
+			}
+
+			MainActivity.this.runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					long millisToEnd = schedule.getEndTime() - System.currentTimeMillis();
+
+					int seconds = (int) (millisToEnd / 1000) % 60;
+					int minutes = (int) ((millisToEnd / (1000 * 60)) % 60);
+					int hours = (int) ((millisToEnd / (1000 * 60 * 60)) % 24);
+
+					countdown.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
+				}
+			});
+		}
+	}
 
 }
