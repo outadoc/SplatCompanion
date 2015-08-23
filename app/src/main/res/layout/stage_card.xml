@@ -39,7 +39,12 @@
 					android:layout_alignBottom="@id/img_stage"
 					android:layout_margin="5dp"
 					android:background="@drawable/title_bg"
+					android:ellipsize="end"
 					android:gravity="center"
+					android:lines="1"
+					android:paddingLeft="5dp"
+					android:paddingRight="5dp"
+					android:singleLine="true"
 					android:textColor="@android:color/white"
 					android:textSize="23sp" />
 
