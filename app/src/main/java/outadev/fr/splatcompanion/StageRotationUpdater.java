@@ -25,9 +25,9 @@ import outadev.fr.splatcompanion.model.Stage;
 import outadev.fr.splatcompanion.model.StageFactory;
 
 /**
- * Manages the retrieval of map rotation schedules from the API.
+ * Manages the retrieval of stage rotation schedules from the API.
  */
-public class MapRotationUpdater {
+public class StageRotationUpdater {
 
 	public static final String SCHEDULE_ENDPOINT_URL = "https://splatoon.ink/schedule.json";
 	public static final String KEY_LAST_CACHED_DATA = "cached_response_schedule";
@@ -56,7 +56,7 @@ public class MapRotationUpdater {
 
 					// If the cached schedules are still fresh
 					if(cachedSchedules.get(0).getEndTime() > System.currentTimeMillis()) {
-						Log.d(MapRotationUpdater.class.getName(), "Using cached data");
+						Log.d(StageRotationUpdater.class.getName(), "Using cached data");
 						return cachedSchedules;
 					}
 				}
@@ -65,7 +65,7 @@ public class MapRotationUpdater {
 			}
 		}
 
-		Log.d(MapRotationUpdater.class.getName(), "Fetching fresh data");
+		Log.d(StageRotationUpdater.class.getName(), "Fetching fresh data");
 
 		String freshData = getScheduleDataFromAPI();
 		prefs.edit()

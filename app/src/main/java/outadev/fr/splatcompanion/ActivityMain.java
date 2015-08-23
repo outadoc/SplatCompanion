@@ -26,7 +26,7 @@ import outadev.fr.splatcompanion.model.Schedule;
  * The main activity of the app.
  * Contains a view pager with fragments to present the schedules.
  */
-public class MainActivity extends AppCompatActivity {
+public class ActivityMain extends AppCompatActivity {
 
 	public static final int TIMER_UPDATE_INTERVAL = 1000;
 
@@ -43,17 +43,20 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		// Instantiate fragments
 		fragmentRegularBattles = new FragmentRegularBattles();
 		fragmentRankedBattles = new FragmentRankedBattles();
 
 		TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
 		ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
 
+		// Setup view pager to display the different fragments
 		viewPager.setAdapter(new SectionPagerAdapter(getSupportFragmentManager()));
 		tabLayout.setupWithViewPager(viewPager);
 
 		countdown = (TextView) findViewById(R.id.txt_countdown);
 
+		// Set up the overflow button, using a popup menu
 		final ImageButton buttonOverflow = (ImageButton) findViewById(R.id.overflow_button);
 		final PopupMenu menu = new PopupMenu(this, buttonOverflow);
 		menu.inflate(R.menu.menu_main);
@@ -67,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 						(new FetchRotationSchedule()).execute();
 						return true;
 					case R.id.menu_item_about:
-						startActivity(new Intent(MainActivity.this, ActivityAbout.class));
+						startActivity(new Intent(ActivityMain.this, ActivityAbout.class));
 						return true;
 					default:
 						return false;
@@ -85,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
 		});
 
+		// If the activity just loaded, refresh data
 		if(savedInstanceState == null) {
 			(new FetchRotationSchedule()).execute();
 		}
@@ -102,6 +106,9 @@ public class MainActivity extends AppCompatActivity {
 		resumeTimer();
 	}
 
+	/**
+	 * Stops the countdown update timer.
+	 */
 	public void stopTimer() {
 		if(timer != null) {
 			timer.cancel();
@@ -109,11 +116,20 @@ public class MainActivity extends AppCompatActivity {
 		}
 	}
 
+	/**
+	 * Resumes the countdown update timer.
+	 */
 	public void resumeTimer() {
 		timer = new Timer();
 		timer.schedule(new UpdateCountdownTimerTask(), 0, TIMER_UPDATE_INTERVAL);
 	}
 
+	/**
+	 * Displays an error message using a dialog.
+	 *
+	 * @param title The title of the error dialog.
+	 * @param message The message of the error dialog.
+	 */
 	public void displayErrorMessage(String title, String message) {
 		(new AlertDialog.Builder(this)
 				.setTitle(title)
@@ -122,6 +138,10 @@ public class MainActivity extends AppCompatActivity {
 				.show();
 	}
 
+	/**
+	 * A pager adapter that displays the different fragments corresponding to the different
+	 * battle modes.
+	 */
 	public class SectionPagerAdapter extends FragmentPagerAdapter {
 
 		public SectionPagerAdapter(FragmentManager fm) {
@@ -156,6 +176,9 @@ public class MainActivity extends AppCompatActivity {
 		}
 	}
 
+	/**
+	 * A timer task that updates the countdown timer until the next planned stage rotation.
+	 */
 	private class UpdateCountdownTimerTask extends TimerTask {
 
 		@Override
@@ -165,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
 				return;
 			}
 
-			MainActivity.this.runOnUiThread(new Runnable() {
+			ActivityMain.this.runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
 					// Calculate the hours/minutes/seconds until the next map rotation
@@ -182,6 +205,9 @@ public class MainActivity extends AppCompatActivity {
 		}
 	}
 
+	/**
+	 * Fetches the freshest (current) stage rotation schedule.
+	 */
 	private class FetchRotationSchedule extends AsyncTask<Void, Void, List<Schedule>> {
 
 		private Exception e;
@@ -189,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
 		@Override
 		protected List<Schedule> doInBackground(Void... params) {
 			try {
-				return MapRotationUpdater.getFreshestData(getApplicationContext());
+				return StageRotationUpdater.getFreshestData(getApplicationContext());
 			} catch(Exception e) {
 				e.printStackTrace();
 
@@ -209,12 +235,14 @@ public class MainActivity extends AppCompatActivity {
 				displayErrorMessage(getString(R.string.error), e.getMessage());
 			}
 
+			// If there are no schedules (probably during a splatfest), we display a notice to the user
 			if(schedules.isEmpty()) {
 				displayErrorMessage(getString(R.string.error_no_stages_title),
 						getString(R.string.error_no_stages_message));
 				return;
 			}
 
+			// Update the schedule in the fragments, resume the countdown timer
 			schedule = schedules.get(0);
 
 			fragmentRegularBattles.updateSchedule(schedule);

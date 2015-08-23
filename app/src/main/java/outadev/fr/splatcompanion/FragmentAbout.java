@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
 /**
- * Created by outadoc on 23/08/15.
+ * A fragment that displays the about screen (using preferences).
  */
 public class FragmentAbout extends PreferenceFragment {
 

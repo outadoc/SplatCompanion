@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 /**
- * Created by outadoc on 23/08/15.
+ * An activity whose sole purpose is to display the about fragment.
  */
 public class ActivityAbout extends AppCompatActivity {
 
