@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="stage_arowana_mall">Plazuela del Calamar</string>
+	<string name="stage_blackbelly_skatepark">Parque Lubina</string>
+	<string name="stage_bluefin_depot">Mina Costera</string>
+	<string name="stage_camp_triggerfish">Campamento Arowana</string>
+	<string name="stage_flounder_heights">Complejo Medusa</string>
+	<string name="stage_kelp_dome">Jardín Botánico</string>
+	<string name="stage_moray_towers">Torres Merluza</string>
+	<string name="stage_port_mackerel">Puerto Jurel</string>
+	<string name="stage_saltspray_rig">Plataforma Gaviota</string>
+	<string name="stage_urchin_underpass">Parque Viaducto</string>
+	<string name="stage_walleye_warehouse">Almacén Rodaballo</string>
+
+</resources>

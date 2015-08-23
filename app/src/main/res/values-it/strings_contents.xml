@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="stage_arowana_mall">Centro Commerciale</string>
+	<string name="stage_blackbelly_skatepark">Pista Polposkate</string>
+	<string name="stage_bluefin_depot">Molo Mollusco</string>
+	<string name="stage_camp_triggerfish">Campeggio Totan</string>
+	<string name="stage_flounder_heights">Cime Sogliolose</string>
+	<string name="stage_kelp_dome">Serra di Alghe</string>
+	<string name="stage_moray_towers">Torri Cittadine</string>
+	<string name="stage_port_mackerel">Porto Polpo</string>
+	<string name="stage_saltspray_rig">Raffineria</string>
+	<string name="stage_urchin_underpass">Periferia Urbana</string>
+	<string name="stage_walleye_warehouse">Magazzino</string>
+
+</resources>

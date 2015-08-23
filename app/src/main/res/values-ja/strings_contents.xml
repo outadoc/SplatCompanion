@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="stage_arowana_mall">アロワナモール</string>
+	<string name="stage_blackbelly_skatepark">Bバスパーク</string>
+	<string name="stage_bluefin_depot">ネギトロ炭鉱</string>
+	<string name="stage_camp_triggerfish">モンガラキャンプ場</string>
+	<string name="stage_flounder_heights">ヒラメが丘団地</string>
+	<string name="stage_kelp_dome">モズク農園</string>
+	<string name="stage_moray_towers">タチウオパーキング</string>
+	<string name="stage_port_mackerel">ホッケふ頭</string>
+	<string name="stage_saltspray_rig">シオノメ油田</string>
+	<string name="stage_urchin_underpass">デカライン高架下</string>
+	<string name="stage_walleye_warehouse">ハコフグ倉庫</string>
+
+</resources>
