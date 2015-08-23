@@ -34,6 +34,7 @@
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
+				android:layout_marginEnd="8dp"
 				android:layout_marginRight="8dp"
 				android:text="@string/countdown_title"
 				android:textColor="@android:color/white"
@@ -51,8 +52,10 @@
 		</LinearLayout>
 
 		<ImageButton
+			android:id="@+id/overflow_button"
 			android:layout_width="wrap_content"
 			android:layout_height="match_parent"
+			android:layout_alignParentEnd="true"
 			android:layout_alignParentRight="true"
 			android:background="?attr/selectableItemBackgroundBorderless"
 			android:src="@drawable/ic_more_horiz_white" />

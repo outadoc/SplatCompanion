@@ -9,6 +9,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import java.util.List;
@@ -49,6 +52,17 @@ public class MainActivity extends AppCompatActivity {
 		tabLayout.setupWithViewPager(viewPager);
 
 		countdown = (TextView) findViewById(R.id.txt_countdown);
+
+		final ImageButton buttonOverflow = (ImageButton) findViewById(R.id.overflow_button);
+		final PopupMenu menu = new PopupMenu(this, buttonOverflow);
+		menu.inflate(R.menu.menu_main);
+
+		buttonOverflow.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				menu.show();
+			}
+		});
 
 		if(savedInstanceState == null) {
 			(new FetchRotationSchedule()).execute();
