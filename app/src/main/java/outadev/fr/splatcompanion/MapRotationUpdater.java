@@ -1,5 +1,10 @@
 package outadev.fr.splatcompanion;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
+
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -25,15 +30,57 @@ import outadev.fr.splatcompanion.model.StageFactory;
 public class MapRotationUpdater {
 
 	public static final String SCHEDULE_ENDPOINT_URL = "https://splatoon.ink/schedule.json";
+	public static final String KEY_LAST_CACHED_DATA = "cached_response_schedule";
 
-	private static final OkHttpClient client = new OkHttpClient();
+	protected static final OkHttpClient client = new OkHttpClient();
+
+	/**
+	 * Fetches the freshest schedules available (from cache or from the API).
+	 *
+	 * @param context A context
+	 * @return A list of schedules containing the data
+	 *
+	 * @throws IOException
+	 * @throws JSONException
+	 */
+	public static List<Schedule> getFreshestData(Context context) throws IOException, JSONException {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		String cache = prefs.getString(KEY_LAST_CACHED_DATA, null);
+
+		if(cache != null) {
+			try {
+				List<Schedule> cachedSchedules = parseSchedules(cache);
+
+				// If the cached schedules aren't empty
+				if(cachedSchedules != null && !cachedSchedules.isEmpty()) {
+
+					// If the cached schedules are still fresh
+					if(cachedSchedules.get(0).getEndTime() > System.currentTimeMillis()) {
+						Log.d(MapRotationUpdater.class.getName(), "Using cached data");
+						return cachedSchedules;
+					}
+				}
+			} catch(JSONException e) {
+				e.printStackTrace();
+			}
+		}
+
+		Log.d(MapRotationUpdater.class.getName(), "Fetching fresh data");
+
+		String freshData = getScheduleDataFromAPI();
+		prefs.edit()
+				.putString(KEY_LAST_CACHED_DATA, freshData)
+				.apply();
+
+		return parseSchedules(freshData);
+	}
 
 	/**
 	 * Retrieves the freshest schedule from the API
 	 * @return The raw response from the API
 	 * @throws IOException
 	 */
-	public static String getScheduleDataFromAPI() throws IOException {
+	protected static String getScheduleDataFromAPI() throws IOException {
 		Request request = new Request.Builder()
 				.url(SCHEDULE_ENDPOINT_URL)
 				.build();
@@ -50,7 +97,7 @@ public class MapRotationUpdater {
 	 * @return A list of schedules containing the parsed data
 	 * @throws JSONException
 	 */
-	public static List<Schedule> parseSchedules(String rawJson) throws JSONException {
+	protected static List<Schedule> parseSchedules(String rawJson) throws JSONException {
 		List<Schedule> schedules = new ArrayList<>();
 
 		JSONObject baseObject = new JSONObject(rawJson);
@@ -63,20 +110,21 @@ public class MapRotationUpdater {
 
 			// Parse Regular game mode
 			GameModeRegular regular = new GameModeRegular();
-			regular.getStages().addAll(getStagesForJSONObject(scheduleObject.getJSONObject("regular")));
+			regular.getStages().addAll(parseStages(scheduleObject.getJSONObject("regular")));
 
 			// Parse Ranked game mode
 			JSONObject rankedObject = scheduleObject.getJSONObject("ranked");
 
 			GameModeRanked ranked = new GameModeRanked();
 			ranked.setGameRules(RulesFactory.create(rankedObject.getString("rulesEN")));
-			ranked.getStages().addAll(getStagesForJSONObject(rankedObject));
+			ranked.getStages().addAll(parseStages(rankedObject));
 
 			schedule.setRegularMode(regular);
 			schedule.setRankedMode(ranked);
 
 			schedules.add(schedule);
 		}
+
 
 		return schedules;
 	}
@@ -85,7 +133,7 @@ public class MapRotationUpdater {
 	 * Get the stages for a JSON object containing maps
 	 * "regular":{ "maps":[{...
 	 */
-	private static List<Stage> getStagesForJSONObject(JSONObject gameModeObject) throws JSONException {
+	protected static List<Stage> parseStages(JSONObject gameModeObject) throws JSONException {
 		List<Stage> stages = new ArrayList<>();
 		JSONArray mapsArray = gameModeObject.getJSONArray("maps");
 

@@ -11,9 +11,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import org.json.JSONException;
-
-import java.io.IOException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -71,19 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
 		timer = new Timer();
 		timer.schedule(countdownTask, 0, TIMER_UPDATE_INTERVAL);
-	}
-
-	private Schedule getDummySchedule() {
-		try {
-			String rawJson = "{\"updateTime\":1440151275135,\"schedule\":[{\"startTime\":1440151200000,\"endTime\":1440165600000,\"regular\":{\"maps\":[{\"nameJP\":\"ネギトロ炭鉱\",\"nameEN\":\"Bluefin Depot\"},{\"nameJP\":\"ヒラメが丘団地\",\"nameEN\":\"Flounder Heights\"}]},\"ranked\":{\"maps\":[{\"nameJP\":\"モンガラキャンプ場\",\"nameEN\":\"Camp Triggerfish\"},{\"nameJP\":\"ヒラメが丘団地\",\"nameEN\":\"Flounder Heights\"}],\"rulesJP\":\"ガチヤグラ\",\"rulesEN\":\"Tower Control\"}},{\"startTime\":1440165600000,\"endTime\":1440180000000,\"regular\":{\"maps\":[{\"nameJP\":\"デカライン高架下\",\"nameEN\":\"Urchin Underpass\"},{\"nameJP\":\"ヒラメが丘団地\",\"nameEN\":\"Flounder Heights\"}]},\"ranked\":{\"maps\":[{\"nameJP\":\"タチウオパーキング\",\"nameEN\":\"Moray Towers\"},{\"nameJP\":\"ヒラメが丘団地\",\"nameEN\":\"Flounder Heights\"}],\"rulesJP\":\"ガチホコ\",\"rulesEN\":\"Rainmaker\"}},{\"startTime\":1440180000000,\"endTime\":1440194400000,\"regular\":{\"maps\":[{\"nameJP\":\"ハコフグ倉庫\",\"nameEN\":\"Walleye Warehouse\"},{\"nameJP\":\"ヒラメが丘団地\",\"nameEN\":\"Flounder Heights\"}]},\"ranked\":{\"maps\":[{\"nameJP\":\"ホッケふ頭\",\"nameEN\":\"Port Mackerel\"},{\"nameJP\":\"ヒラメが丘団地\",\"nameEN\":\"Flounder Heights\"}],\"rulesJP\":\"ガチエリア\",\"rulesEN\":\"Splat Zones\"}}]}";
-			List<Schedule> schedules = MapRotationUpdater.parseSchedules(rawJson);
-			// Set end time to 4 hours from now
-			schedules.get(0).setEndTime(System.currentTimeMillis() + 1000 * 60 * 60 * 4);
-			return schedules.get(0);
-		} catch(JSONException e) {
-			e.printStackTrace();
-			return null;
-		}
 	}
 
 	public void displayErrorMessage(String title, String message) {
@@ -153,17 +137,18 @@ public class MainActivity extends AppCompatActivity {
 		}
 	}
 
-	private class FetchRotationSchedule extends AsyncTask<Void, Void, String> {
+	private class FetchRotationSchedule extends AsyncTask<Void, Void, List<Schedule>> {
 
 		private Exception e;
 
 		@Override
-		protected String doInBackground(Void... params) {
+		protected List<Schedule> doInBackground(Void... params) {
 			try {
-				return MapRotationUpdater.getScheduleDataFromAPI();
-			} catch(IOException e) {
-				this.e = e;
+				return MapRotationUpdater.getFreshestData(getApplicationContext());
+			} catch(Exception e) {
 				e.printStackTrace();
+
+				this.e = e;
 				return null;
 			}
 		}
@@ -174,30 +159,21 @@ public class MainActivity extends AppCompatActivity {
 		}
 
 		@Override
-		protected void onPostExecute(String s) {
-			super.onPostExecute(s);
-
+		protected void onPostExecute(List<Schedule> schedules) {
 			if(e != null) {
 				displayErrorMessage("Error", e.getMessage());
 			}
 
-			try {
-				List<Schedule> schedules = MapRotationUpdater.parseSchedules(s);
-
-				if(schedules.isEmpty()) {
-					displayErrorMessage("Can't get current stages",
-							"We couldn't get the current stages right now. Maybe there's a Splatfest going on?");
-					return;
-				}
-
-				schedule = schedules.get(0);
-
-				fragmentRegularBattles.updateSchedule(schedule);
-				fragmentRankedBattles.updateSchedule(schedule);
-			} catch(JSONException e) {
-				e.printStackTrace();
-				displayErrorMessage("Error", e.getMessage());
+			if(schedules.isEmpty()) {
+				displayErrorMessage("Can't get current stages",
+						"We couldn't get the current stages right now. Maybe there's a Splatfest going on?");
+				return;
 			}
+
+			schedule = schedules.get(0);
+
+			fragmentRegularBattles.updateSchedule(schedule);
+			fragmentRankedBattles.updateSchedule(schedule);
 		}
 
 	}
