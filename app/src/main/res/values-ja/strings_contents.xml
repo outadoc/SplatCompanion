@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+	<string name="rules_turf_war">ナワバリバトル</string>
+	<string name="rules_rainmaker">ガチホコ</string>
+	<string name="rules_splat_zones">ガチエリア</string>
+	<string name="rules_tower_control">ガチヤグラ</string>
+
 	<string name="stage_arowana_mall">アロワナモール</string>
 	<string name="stage_blackbelly_skatepark">Bバスパーク</string>
 	<string name="stage_bluefin_depot">ネギトロ炭鉱</string>
@@ -12,5 +17,8 @@
 	<string name="stage_saltspray_rig">シオノメ油田</string>
 	<string name="stage_urchin_underpass">デカライン高架下</string>
 	<string name="stage_walleye_warehouse">ハコフグ倉庫</string>
+
+	<string name="mode_regular">レギュラーマッチ</string>
+	<string name="mode_ranked">ガチマッチ</string>
 
 </resources>

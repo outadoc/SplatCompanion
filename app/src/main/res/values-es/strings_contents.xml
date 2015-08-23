@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+	<string name="rules_turf_war">Territorial</string>
+	<string name="rules_rainmaker">Pez dorado</string>
+	<string name="rules_splat_zones">Pintazonas</string>
+	<string name="rules_tower_control">Torreón</string>
+
 	<string name="stage_arowana_mall">Plazuela del Calamar</string>
 	<string name="stage_blackbelly_skatepark">Parque Lubina</string>
 	<string name="stage_bluefin_depot">Mina Costera</string>
@@ -12,5 +17,8 @@
 	<string name="stage_saltspray_rig">Plataforma Gaviota</string>
 	<string name="stage_urchin_underpass">Parque Viaducto</string>
 	<string name="stage_walleye_warehouse">Almacén Rodaballo</string>
+
+	<string name="mode_regular">Combate Amistoso</string>
+	<string name="mode_ranked">Combate Competitivo</string>
 
 </resources>

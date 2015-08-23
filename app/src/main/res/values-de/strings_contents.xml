@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+	<string name="rules_turf_war">Turf War</string>
+	<string name="rules_rainmaker">Operation Goldfisch</string>
+	<string name="rules_splat_zones">Splat Zones</string>
+	<string name="rules_tower_control">Tower Control</string>
+
 	<string name="stage_arowana_mall">Arowana Center</string>
 	<string name="stage_blackbelly_skatepark">Punkasius-Skatepark</string>
 	<string name="stage_bluefin_depot">Blauflossen-Depot</string>
@@ -12,5 +17,8 @@
 	<string name="stage_saltspray_rig">Bohrinsel Nautilus</string>
 	<string name="stage_urchin_underpass">Dekabahnstation</string>
 	<string name="stage_walleye_warehouse">Kofferfisch-Lager</string>
+
+	<string name="mode_regular">Standard-Kampf</string>
+	<string name="mode_ranked">Rangkampf</string>
 
 </resources>

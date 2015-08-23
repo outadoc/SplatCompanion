@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="unknown">Inconnu</string>
-
 	<string name="rules_turf_war">Guerre de Territoire</string>
 	<string name="rules_rainmaker">Bazookarpe</string>
 	<string name="rules_splat_zones">Splat Zones</string>
