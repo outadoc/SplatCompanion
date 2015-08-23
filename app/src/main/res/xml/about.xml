@@ -3,43 +3,61 @@
 
 	<Preference
 		android:key="pref_version"
-		android:summary="Splat Companion v"
-		android:title="Version" />
+		android:summary="@string/about_version_sum"
+		android:title="@string/about_version_title" />
 
 	<PreferenceCategory
-		android:title="Links and special thanks">
+		android:title="@string/about_links_cat">
 
 		<Preference
-			android:summary="This is an unofficial app made by a fan of Splatoon and designed to help players in their gaming experience. Check out Splatoon if you haven't already. Seriously, why are you still here, go get it!"
-			android:title="Check out Splatoon" />
+			android:summary="@string/about_splatoon_link_sum"
+			android:title="@string/about_splatoon_link_title">
+
+			<intent
+				android:action="android.intent.action.VIEW"
+				android:data="@string/about_url_splatoon" />
+
+			</Preference>
 
 		<Preference
-			android:summary="This app uses data made available by splatoon.ink. Check them out!"
-			android:title="Splatoon.ink ♥" />
+			android:summary="@string/about_splatoon_ink_sum"
+			android:title="@string/about_splatoon_ink_title">
+
+			<intent
+				android:action="android.intent.action.VIEW"
+				android:data="@string/about_url_splatoon_ink" />
+
+		</Preference>
 
 		<Preference
-			android:summary="If you liked this app, you may like some of my other stuff. See by yourself!"
-			android:title="More apps and stuff" />
+			android:summary="@string/about_more_link_sum"
+			android:title="@string/about_more_link_title">
+
+			<intent
+				android:action="android.intent.action.VIEW"
+				android:data="@string/about_url_outadev" />
+
+		</Preference>
 
 	</PreferenceCategory>
 	<PreferenceCategory
-		android:title="Legal">
+		android:title="@string/about_legal_cat">
 
 		<Preference
-			android:summary="Nintendo is in no way involved with Splat Companion, and all names or assets in reference to Splatoon exclusively belong to Nintendo Co., Ltd.\nSplatoon and Wii U are trademarks of Nintendo Co., Ltd."
-			android:title="About Splatoon™ for Wii U" />
+			android:summary="@string/about_legal_nintendo_sum"
+			android:title="@string/about_legal_nintendo_title" />
 
 		<Preference
-			android:summary="© Baptiste Candellier/outa[dev] 2015"
-			android:title="Copyright" />
+			android:summary="@string/about_copyright_sum"
+			android:title="@string/about_copyright_title" />
 
 	</PreferenceCategory>
 	<PreferenceCategory
-		android:title="Open-Source Software">
+		android:title="@string/about_oss_cat">
 
 		<Preference
-			android:summary="Provided by Square under the terms of the Apache License"
-			android:title="OkHttp" />
+			android:summary="@string/about_oss_okhttp_sum"
+			android:title="@string/about_oss_okhttp_title" />
 
 	</PreferenceCategory>
 

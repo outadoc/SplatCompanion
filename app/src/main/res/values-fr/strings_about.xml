@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="about_version_title">Version</string>
+	<string name="about_version_sum">Splat Companion v%1$s</string>
+	<string name="about_links_cat">Liens et remerciements</string>
+	<string name="about_splatoon_link_sum">Ceci est une application non-officielle créée par un fan de Splatoon et conçue pour aider les joueurs dans leur expérience de jeu. Découvrez Splatoon si ce n\'est pas déjà fait. Sérieusement, qu\'est-ce que vous faites encore ici ? Allez-y !</string>
+	<string name="about_splatoon_link_title">Découvrir Splatoon™ </string>
+	<string name="about_splatoon_ink_sum">Cette app utilise les données fournies par splatoon.ink. Faites-y un tour !</string>
+	<string name="about_splatoon_ink_title">Splatoon.ink ♥</string>
+	<string name="about_more_link_sum">Si vous avez aimé cette app, vous aimerez peut-être mes autres trucs. Allez y jeter un oeil !</string>
+	<string name="about_more_link_title">Plus d\'applis</string>
+	<string name="about_legal_cat">Mentions légales</string>
+	<string name="about_legal_nintendo_sum">Nintendo n\'est en aucun cas impliqué avec Splat Companion, et tous les noms ou textures en référence à Splatoon appartiennent exclusivement à Nintendo Co., Ltd.\nSplatoon et Wii U sont des marques déposées de Nintendo Co., Ltd.</string>
+	<string name="about_legal_nintendo_title">À propos de Splatoon™ pour Wii U</string>
+	<string name="about_copyright_sum">© Baptiste Candellier/outa[dev] 2015</string>
+	<string name="about_copyright_title">Copyright</string>
+	<string name="about_oss_cat">Logiciels libres</string>
+	<string name="about_oss_okhttp_sum">Fourni par Square sous les termes de la licence Apache</string>
+	<string name="about_oss_okhttp_title">OkHttp</string>
+	<string name="about_url_splatoon">https://splatoon.nintendo.com/fr/</string>
+	<string name="about_url_outadev">https://dev.outadoc.fr/fr/</string>
+
+</resources>
