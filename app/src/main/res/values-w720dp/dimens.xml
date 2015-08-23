@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Splat Companion - Stage rotation schedule viewer for Splatoon(tm)
   ~ Copyright (C) 2015  Baptiste Candellier
@@ -18,7 +19,7 @@
 
 <resources>
 
-	<!-- Little hacky hack: -1px = match_parent -->
-	<dimen name="stage_card_width">-1px</dimen>
+	<!-- Limit stage card width to this on wide screens -->
+	<dimen name="stage_card_width">650dp</dimen>
 
 </resources>
