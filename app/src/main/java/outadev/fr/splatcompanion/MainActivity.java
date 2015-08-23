@@ -1,6 +1,7 @@
 package outadev.fr.splatcompanion;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -36,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
 	private Schedule schedule;
 
 	private Timer timer;
-	private TimerTask countdownTask;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,23 +59,30 @@ public class MainActivity extends AppCompatActivity {
 		menu.inflate(R.menu.menu_main);
 
 		menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
 				switch(item.getItemId()) {
 					case R.id.menu_item_refresh:
 						(new FetchRotationSchedule()).execute();
 						return true;
+					case R.id.menu_item_about:
+						startActivity(new Intent(MainActivity.this, ActivityAbout.class));
+						return true;
 					default:
 						return false;
 				}
 			}
+
 		});
 
 		buttonOverflow.setOnClickListener(new View.OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				menu.show();
 			}
+
 		});
 
 		if(savedInstanceState == null) {
@@ -103,10 +110,8 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void resumeTimer() {
-		countdownTask = new UpdateCountdownTimerTask();
-
 		timer = new Timer();
-		timer.schedule(countdownTask, 0, TIMER_UPDATE_INTERVAL);
+		timer.schedule(new UpdateCountdownTimerTask(), 0, TIMER_UPDATE_INTERVAL);
 	}
 
 	public void displayErrorMessage(String title, String message) {
