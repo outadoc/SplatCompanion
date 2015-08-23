@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
 		@Override
 		public void run() {
-			if(schedule == null) {
+			if(schedule == null || schedule.getEndTime() < System.currentTimeMillis()) {
 				(new FetchRotationSchedule()).execute();
 				return;
 			}
