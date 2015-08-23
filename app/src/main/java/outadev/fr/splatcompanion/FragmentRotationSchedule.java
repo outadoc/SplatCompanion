@@ -92,6 +92,8 @@ public abstract class FragmentRotationSchedule extends Fragment {
 			ImageView imgMapPreview = (ImageView) stageView.findViewById(R.id.img_stage);
 
 			txtMapName.setText(stage.getNameResId());
+			txtMapName.setTypeface(typeface);
+
 			imgMapPreview.setImageResource(stage.getPreviewResId());
 			stagesContainer.addView(stageView);
 		}
