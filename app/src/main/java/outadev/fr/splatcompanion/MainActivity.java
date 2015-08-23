@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
@@ -56,6 +57,19 @@ public class MainActivity extends AppCompatActivity {
 		final ImageButton buttonOverflow = (ImageButton) findViewById(R.id.overflow_button);
 		final PopupMenu menu = new PopupMenu(this, buttonOverflow);
 		menu.inflate(R.menu.menu_main);
+
+		menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+			@Override
+			public boolean onMenuItemClick(MenuItem item) {
+				switch(item.getItemId()) {
+					case R.id.menu_item_refresh:
+						(new FetchRotationSchedule()).execute();
+						return true;
+					default:
+						return false;
+				}
+			}
+		});
 
 		buttonOverflow.setOnClickListener(new View.OnClickListener() {
 			@Override
