@@ -22,8 +22,8 @@
 	<string name="error">Erreur</string>
 	<string name="error_no_stages_title">Récupération des stages impossible</string>
 	<string name="error_no_stages_message">Impossible de récupérer la liste des stages pour l\'instant. Peut-être parce qu\'un festival est en cours ?</string>
+	<string name="error_generic_network_message">Erreur lors de la récupération des stages.</string>
 	<string name="countdown_title">Prochaine rotation dans</string>
-
 	<string name="item_refresh">Rafraîchir</string>
 	<string name="item_about">À Propos</string>
 

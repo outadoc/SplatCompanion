@@ -251,6 +251,12 @@ public class ActivityMain extends AppCompatActivity {
 		protected void onPostExecute(List<Schedule> schedules) {
 			if(e != null) {
 				displayErrorMessage(getString(R.string.error), e.getMessage());
+				return;
+			}
+
+			if(schedules == null) {
+				displayErrorMessage(getString(R.string.error), getString(R.string.error_generic_network_message));
+				return;
 			}
 
 			// If there are no schedules (probably during a splatfest), we display a notice to the user
