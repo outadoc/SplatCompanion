@@ -173,12 +173,12 @@ public class MainActivity extends AppCompatActivity {
 		@Override
 		protected void onPostExecute(List<Schedule> schedules) {
 			if(e != null) {
-				displayErrorMessage("Error", e.getMessage());
+				displayErrorMessage(getString(R.string.error), e.getMessage());
 			}
 
 			if(schedules.isEmpty()) {
-				displayErrorMessage("Can't get current stages",
-						"We couldn't get the current stages right now. Maybe there's a Splatfest going on?");
+				displayErrorMessage(getString(R.string.error_no_stages_title),
+						getString(R.string.error_no_stages_message));
 				return;
 			}
 

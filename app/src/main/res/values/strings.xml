@@ -1,6 +1,11 @@
 <resources>
+
 	<string name="app_name">Splat Companion</string>
 
-	<string name="hello_world">Hello world!</string>
-	<string name="action_settings">Settings</string>
+	<string name="error">Error</string>
+	<string name="error_no_stages_title">Can\'t get current stages</string>
+	<string name="error_no_stages_message">We couldn\'t get the current stages right now. Maybe there\'s a Splatfest going on?</string>
+	<string name="countdown_timer_default" translatable="false">--:--:--</string>
+	<string name="countdown_title">Next rotation in</string>
+
 </resources>

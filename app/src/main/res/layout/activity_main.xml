@@ -31,7 +31,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginRight="8dp"
-			android:text="Next rotation in"
+			android:text="@string/countdown_title"
 			android:textColor="@android:color/white"
 			android:textSize="16sp" />
 
@@ -39,7 +39,7 @@
 			android:id="@+id/txt_countdown"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="--:--:--"
+			android:text="@string/countdown_timer_default"
 			android:textColor="@android:color/white"
 			android:textSize="22sp"
 			android:textStyle="bold" />
