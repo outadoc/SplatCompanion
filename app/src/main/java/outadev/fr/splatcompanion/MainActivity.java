@@ -58,12 +58,23 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		timer.cancel();
+		stopTimer();
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
+		resumeTimer();
+	}
+
+	public void stopTimer() {
+		if(timer != null) {
+			timer.cancel();
+			timer = null;
+		}
+	}
+
+	public void resumeTimer() {
 		countdownTask = new UpdateCountdownTimerTask();
 
 		timer = new Timer();
@@ -117,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
 		@Override
 		public void run() {
 			if(schedule == null) {
+				(new FetchRotationSchedule()).execute();
 				return;
 			}
 
@@ -155,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
 		@Override
 		protected void onPreExecute() {
-			super.onPreExecute();
+			stopTimer();
 		}
 
 		@Override
@@ -174,6 +186,8 @@ public class MainActivity extends AppCompatActivity {
 
 			fragmentRegularBattles.updateSchedule(schedule);
 			fragmentRankedBattles.updateSchedule(schedule);
+
+			resumeTimer();
 		}
 
 	}
