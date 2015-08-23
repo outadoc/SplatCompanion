@@ -18,32 +18,45 @@
 		android:layout_height="0dp"
 		android:layout_weight="1" />
 
-	<LinearLayout
+	<RelativeLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
+		android:layout_height="40dp"
 		android:background="#000"
 		android:elevation="5dp"
-		android:gravity="center"
 		android:orientation="horizontal"
 		android:padding="5dp">
 
-		<TextView
-			android:layout_width="wrap_content"
+		<LinearLayout
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginRight="8dp"
-			android:text="@string/countdown_title"
-			android:textColor="@android:color/white"
-			android:textSize="16sp" />
+			android:gravity="center">
 
-		<TextView
-			android:id="@+id/txt_countdown"
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginRight="8dp"
+				android:text="@string/countdown_title"
+				android:textColor="@android:color/white"
+				android:textSize="16sp" />
+
+			<TextView
+				android:id="@+id/txt_countdown"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/countdown_timer_default"
+				android:textColor="@android:color/white"
+				android:textSize="22sp"
+				android:textStyle="bold" />
+
+		</LinearLayout>
+
+		<ImageButton
 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/countdown_timer_default"
-			android:textColor="@android:color/white"
-			android:textSize="22sp"
-			android:textStyle="bold" />
+			android:layout_height="match_parent"
+			android:layout_alignParentRight="true"
+			android:background="?attr/selectableItemBackgroundBorderless"
+			android:src="@drawable/ic_more_horiz_white" />
 
-	</LinearLayout>
+	</RelativeLayout>
 
 </LinearLayout>
