@@ -74,6 +74,16 @@
 		android:title="@string/about_oss_cat">
 
 		<Preference
+			android:summary="@string/about_oss_app_license"
+			android:title="@string/app_name">
+
+			<intent
+				android:action="android.intent.action.VIEW"
+				android:data="@string/about_url_app_source" />
+
+		</Preference>
+
+		<Preference
 			android:summary="@string/about_oss_okhttp_sum"
 			android:title="@string/about_oss_okhttp_title" />
 

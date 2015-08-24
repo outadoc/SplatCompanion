@@ -39,5 +39,7 @@
 	<string name="about_url_splatoon">https://splatoon.nintendo.com</string>
 	<string name="about_url_splatoon_ink">https://splatoon.ink</string>
 	<string name="about_url_outadev">https://dev.outadoc.fr</string>
+	<string name="about_oss_app_license">Splat Companion is available under the terms of the GNU GPL v3. Tap here to get the source code!</string>
+	<string name="about_url_app_source">https://github.com/outadoc/SplatCompanion</string>
 
 </resources>
