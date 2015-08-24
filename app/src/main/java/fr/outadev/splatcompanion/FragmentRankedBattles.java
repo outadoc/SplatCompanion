@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package outadev.fr.splatcompanion;
+package fr.outadev.splatcompanion;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,7 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import outadev.fr.splatcompanion.model.GameMode;
+import fr.outadev.splatcompanion.model.GameMode;
 
 /**
  * Created by outadoc on 21/08/15.

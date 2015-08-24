@@ -16,37 +16,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package outadev.fr.splatcompanion;
+package fr.outadev.splatcompanion;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
+import android.preference.PreferenceFragment;
 
 /**
- * An activity whose sole purpose is to display the about fragment.
+ * A fragment that displays the about screen (using preferences).
  */
-public class ActivityAbout extends AppCompatActivity {
+public class FragmentAbout extends PreferenceFragment {
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		addPreferencesFromResource(R.xml.about);
 
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-		getFragmentManager().beginTransaction()
-				.replace(android.R.id.content, new FragmentAbout())
-				.commit();
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch(item.getItemId()) {
-			case android.R.id.home:
-				finish();
-				return true;
+		try {
+			PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+			findPreference("pref_version").setSummary(getString(R.string.about_version_sum, pInfo.versionName));
+		} catch(PackageManager.NameNotFoundException e) {
+			e.printStackTrace();
 		}
-
-		return super.onOptionsItemSelected(item);
 	}
 
 }

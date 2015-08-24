@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package outadev.fr.splatcompanion;
+package fr.outadev.splatcompanion;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
@@ -25,7 +25,7 @@ import org.json.JSONException;
 
 import java.util.List;
 
-import outadev.fr.splatcompanion.model.Schedule;
+import fr.outadev.splatcompanion.model.Schedule;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>

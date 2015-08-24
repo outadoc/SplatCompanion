@@ -16,32 +16,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package outadev.fr.splatcompanion;
+package fr.outadev.splatcompanion.model;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import outadev.fr.splatcompanion.model.GameMode;
+import fr.outadev.splatcompanion.R;
 
 /**
- * Created by outadoc on 21/08/15.
+ * The "ranked" game mode.
  */
-public class FragmentRegularBattles extends FragmentRotationSchedule {
+public class GameModeRanked extends GameMode {
 
-	@Nullable
+	private Rules gameRules;
+
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = super.onCreateView(inflater, container, savedInstanceState);
-		txtGameMode.setText(R.string.rules_turf_war);
-		return view;
+	public int getNameResId() {
+		return R.string.mode_ranked;
 	}
 
 	@Override
-	protected GameMode getActiveMode() {
-		return schedule.getRegularMode();
+	public int getIconResId() {
+		return R.drawable.ic_stage_ranked;
+	}
+
+	public Rules getGameRules() {
+		return gameRules;
+	}
+
+	public void setGameRules(Rules gameRules) {
+		this.gameRules = gameRules;
 	}
 
 }

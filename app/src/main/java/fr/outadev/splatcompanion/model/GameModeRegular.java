@@ -16,42 +16,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package outadev.fr.splatcompanion.model;
+package fr.outadev.splatcompanion.model;
 
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
-
-import java.io.Serializable;
+import fr.outadev.splatcompanion.R;
 
 /**
- * A stage, or map. It has a name and a corresponding drawable.
+ * The "regular" game mode.
  */
-public class Stage implements Serializable {
+public class GameModeRegular extends GameMode {
 
-	private
-	@StringRes int nameResId;
-
-	private
-	@DrawableRes int previewResId;
-
-	Stage(@StringRes int nameResId, @DrawableRes int previewResId) {
-		this.nameResId = nameResId;
-		this.previewResId = previewResId;
-	}
-
+	@Override
 	public int getNameResId() {
-		return nameResId;
+		return R.string.mode_regular;
 	}
 
-	public void setNameResId(int nameResId) {
-		this.nameResId = nameResId;
+	@Override
+	public int getIconResId() {
+		return R.drawable.ic_stage_regular;
 	}
 
-	public int getPreviewResId() {
-		return previewResId;
-	}
-
-	public void setPreviewResId(int previewResId) {
-		this.previewResId = previewResId;
-	}
 }

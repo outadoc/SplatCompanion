@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package outadev.fr.splatcompanion;
+package fr.outadev.splatcompanion;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -35,12 +35,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import outadev.fr.splatcompanion.model.GameModeRanked;
-import outadev.fr.splatcompanion.model.GameModeRegular;
-import outadev.fr.splatcompanion.model.RulesFactory;
-import outadev.fr.splatcompanion.model.Schedule;
-import outadev.fr.splatcompanion.model.Stage;
-import outadev.fr.splatcompanion.model.StageFactory;
+import fr.outadev.splatcompanion.model.GameModeRanked;
+import fr.outadev.splatcompanion.model.GameModeRegular;
+import fr.outadev.splatcompanion.model.RulesFactory;
+import fr.outadev.splatcompanion.model.Schedule;
+import fr.outadev.splatcompanion.model.Stage;
+import fr.outadev.splatcompanion.model.StageFactory;
 
 /**
  * Manages the retrieval of stage rotation schedules from the API.

@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package outadev.fr.splatcompanion.model;
+package fr.outadev.splatcompanion.model;
 
 import android.support.annotation.NonNull;
 
-import outadev.fr.splatcompanion.R;
+import fr.outadev.splatcompanion.R;
 
 /**
  * Facilitates the creation of game rules.

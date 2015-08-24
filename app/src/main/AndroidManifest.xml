@@ -18,7 +18,7 @@
   -->
 
 <manifest
-	package="outadev.fr.splatcompanion"
+	package="fr.outadev.splatcompanion"
 	xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<uses-permission android:name="android.permission.INTERNET" />

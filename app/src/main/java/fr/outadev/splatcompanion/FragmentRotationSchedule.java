@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package outadev.fr.splatcompanion;
+package fr.outadev.splatcompanion;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -30,9 +30,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import outadev.fr.splatcompanion.model.GameMode;
-import outadev.fr.splatcompanion.model.Schedule;
-import outadev.fr.splatcompanion.model.Stage;
+import fr.outadev.splatcompanion.model.GameMode;
+import fr.outadev.splatcompanion.model.Schedule;
+import fr.outadev.splatcompanion.model.Stage;
 
 /**
  * A base fragment that presents a rotation schedule to the user.

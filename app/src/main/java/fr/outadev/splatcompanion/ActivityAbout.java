@@ -16,30 +16,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package outadev.fr.splatcompanion.model;
+package fr.outadev.splatcompanion;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 /**
- * A game mode.
- * Example: regular or ranked.
+ * An activity whose sole purpose is to display the about fragment.
  */
-public abstract class GameMode implements Serializable {
+public class ActivityAbout extends AppCompatActivity {
 
-	private List<Stage> stages;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-	public GameMode() {
-		this.stages = new ArrayList<>();
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+		getFragmentManager().beginTransaction()
+				.replace(android.R.id.content, new FragmentAbout())
+				.commit();
 	}
 
-	public abstract int getNameResId();
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()) {
+			case android.R.id.home:
+				finish();
+				return true;
+		}
 
-	public abstract int getIconResId();
-
-	public List<Stage> getStages() {
-		return stages;
+		return super.onOptionsItemSelected(item);
 	}
 
 }

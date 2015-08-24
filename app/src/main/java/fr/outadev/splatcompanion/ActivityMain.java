@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package outadev.fr.splatcompanion;
+package fr.outadev.splatcompanion;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import outadev.fr.splatcompanion.model.Schedule;
+import fr.outadev.splatcompanion.model.Schedule;
 
 /**
  * The main activity of the app.

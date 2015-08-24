@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package outadev.fr.splatcompanion.model;
+package fr.outadev.splatcompanion.model;
 
 import android.support.annotation.StringRes;
 

@@ -16,33 +16,42 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package outadev.fr.splatcompanion.model;
+package fr.outadev.splatcompanion.model;
 
-import outadev.fr.splatcompanion.R;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
+
+import java.io.Serializable;
 
 /**
- * The "ranked" game mode.
+ * A stage, or map. It has a name and a corresponding drawable.
  */
-public class GameModeRanked extends GameMode {
+public class Stage implements Serializable {
 
-	private Rules gameRules;
+	private
+	@StringRes int nameResId;
 
-	@Override
+	private
+	@DrawableRes int previewResId;
+
+	Stage(@StringRes int nameResId, @DrawableRes int previewResId) {
+		this.nameResId = nameResId;
+		this.previewResId = previewResId;
+	}
+
 	public int getNameResId() {
-		return R.string.mode_ranked;
+		return nameResId;
 	}
 
-	@Override
-	public int getIconResId() {
-		return R.drawable.ic_stage_ranked;
+	public void setNameResId(int nameResId) {
+		this.nameResId = nameResId;
 	}
 
-	public Rules getGameRules() {
-		return gameRules;
+	public int getPreviewResId() {
+		return previewResId;
 	}
 
-	public void setGameRules(Rules gameRules) {
-		this.gameRules = gameRules;
+	public void setPreviewResId(int previewResId) {
+		this.previewResId = previewResId;
 	}
-
 }

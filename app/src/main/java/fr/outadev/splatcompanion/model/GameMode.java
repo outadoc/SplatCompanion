@@ -16,29 +16,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package outadev.fr.splatcompanion;
+package fr.outadev.splatcompanion.model;
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.preference.PreferenceFragment;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * A fragment that displays the about screen (using preferences).
+ * A game mode.
+ * Example: regular or ranked.
  */
-public class FragmentAbout extends PreferenceFragment {
+public abstract class GameMode implements Serializable {
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.about);
+	private List<Stage> stages;
 
-		try {
-			PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
-			findPreference("pref_version").setSummary(getString(R.string.about_version_sum, pInfo.versionName));
-		} catch(PackageManager.NameNotFoundException e) {
-			e.printStackTrace();
-		}
+	public GameMode() {
+		this.stages = new ArrayList<>();
+	}
+
+	public abstract int getNameResId();
+
+	public abstract int getIconResId();
+
+	public List<Stage> getStages() {
+		return stages;
 	}
 
 }
