@@ -26,7 +26,7 @@
 	<string name="error_generic_network_message">Error while retrieving the current stages.</string>
 	<string name="countdown_timer_default" translatable="false">--:--:--</string>
 	<string name="countdown_title">Next rotation in</string>
-	<string name="item_refresh">Refresh</string>
+	<string name="item_refresh">Stay Fresh</string>
 	<string name="item_about">About</string>
 
 </resources>
