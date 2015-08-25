@@ -39,5 +39,7 @@
 	<string name="about_url_splatoon">https://splatoon.nintendo.com/fr/</string>
 	<string name="about_url_outadev">https://dev.outadoc.fr/fr/</string>
 	<string name="about_oss_app_license">Splat Companion est disponible sous les termes de la licence GNU GPL v3. Tapez ici pour obtenir le code source !</string>
+	<string name="about_icon_title">Icône par Aewni ♥</string>
+	<string name="about_icon_sum">Merci à Arnaud Mametz pour la superbe icône !</string>
 
 </resources>

@@ -41,5 +41,7 @@
 	<string name="about_url_outadev">https://dev.outadoc.fr</string>
 	<string name="about_oss_app_license">Splat Companion is available under the terms of the GNU GPL v3. Tap here to get the source code!</string>
 	<string name="about_url_app_source">https://github.com/outadoc/SplatCompanion</string>
+	<string name="about_icon_title">Icon by Aewni ♥</string>
+	<string name="about_icon_sum">Thanks to Arnaud Mametz for the amazing icon!</string>
 
 </resources>

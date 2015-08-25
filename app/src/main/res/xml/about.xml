@@ -35,7 +35,7 @@
 				android:action="android.intent.action.VIEW"
 				android:data="@string/about_url_splatoon" />
 
-			</Preference>
+		</Preference>
 
 		<Preference
 			android:summary="@string/about_splatoon_ink_sum"
@@ -44,6 +44,16 @@
 			<intent
 				android:action="android.intent.action.VIEW"
 				android:data="@string/about_url_splatoon_ink" />
+
+		</Preference>
+
+		<Preference
+			android:summary="@string/about_icon_sum"
+			android:title="@string/about_icon_title" >
+
+			<intent
+				android:action="android.intent.action.VIEW"
+				android:data="http://aewni.fr/" />
 
 		</Preference>
 
