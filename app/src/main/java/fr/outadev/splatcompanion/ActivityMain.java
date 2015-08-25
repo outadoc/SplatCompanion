@@ -105,11 +105,6 @@ public class ActivityMain extends AppCompatActivity {
 			}
 
 		});
-
-		// If the activity just loaded, refresh data
-		if(savedInstanceState == null) {
-			(new FetchRotationSchedule()).execute();
-		}
 	}
 
 	@Override
@@ -204,6 +199,7 @@ public class ActivityMain extends AppCompatActivity {
 		public void run() {
 			if(schedule == null || schedule.getEndTime() < System.currentTimeMillis()) {
 				(new FetchRotationSchedule()).execute();
+				stopTimer();
 				return;
 			}
 

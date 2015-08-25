@@ -143,7 +143,6 @@ public class StageRotationUpdater {
 			schedules.add(schedule);
 		}
 
-
 		return schedules;
 	}
 
