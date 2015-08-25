@@ -128,6 +128,8 @@ public class ActivityMain extends AppCompatActivity {
 			timer.cancel();
 			timer = null;
 		}
+
+		countdown.setText(R.string.countdown_timer_default);
 	}
 
 	/**
