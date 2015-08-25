@@ -32,6 +32,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -52,8 +53,9 @@ public class ActivityMain extends AppCompatActivity {
 	private FragmentRankedBattles fragmentRankedBattles;
 
 	private TextView countdown;
-	private Schedule schedule;
+	private ProgressBar progressSpinner;
 
+	private Schedule schedule;
 	private Timer timer;
 
 	@Override
@@ -73,6 +75,7 @@ public class ActivityMain extends AppCompatActivity {
 		tabLayout.setupWithViewPager(viewPager);
 
 		countdown = (TextView) findViewById(R.id.txt_countdown);
+		progressSpinner = (ProgressBar) findViewById(R.id.progress_spinner);
 
 		// Set up the overflow button, using a popup menu
 		final ImageButton buttonOverflow = (ImageButton) findViewById(R.id.overflow_button);
@@ -244,6 +247,7 @@ public class ActivityMain extends AppCompatActivity {
 		@Override
 		protected void onPreExecute() {
 			stopTimer();
+			progressSpinner.setVisibility(View.VISIBLE);
 		}
 
 		@Override
@@ -271,6 +275,7 @@ public class ActivityMain extends AppCompatActivity {
 			fragmentRegularBattles.updateSchedule(schedule);
 			fragmentRankedBattles.updateSchedule(schedule);
 
+			progressSpinner.setVisibility(View.INVISIBLE);
 			resumeTimer();
 		}
 
