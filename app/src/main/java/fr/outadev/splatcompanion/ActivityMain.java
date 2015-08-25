@@ -122,6 +122,7 @@ public class ActivityMain extends AppCompatActivity {
 	protected void onResume() {
 		super.onResume();
 		resumeTimer();
+		(new FetchRotationSchedule()).execute();
 	}
 
 	/**
