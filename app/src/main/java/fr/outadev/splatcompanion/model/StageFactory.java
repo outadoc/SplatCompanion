@@ -57,8 +57,7 @@ public abstract class StageFactory {
 			case "WALLEYE WAREHOUSE":
 				return new Stage(R.string.stage_walleye_warehouse, R.drawable.stage_walleye_warehouse);
 			default:
-				// TODO new default image
-				return new Stage(R.string.unknown, R.drawable.ic_stage_regular);
+				return new Stage(R.string.unknown, R.drawable.stage_unknown);
 		}
 	}
 
