@@ -56,7 +56,9 @@ public class ActivityMain extends AppCompatActivity {
 	private ProgressBar progressSpinner;
 
 	private Schedule schedule;
-	private Timer timer;
+
+	private Timer countdownTimer;
+	private Timer refreshTimer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +90,7 @@ public class ActivityMain extends AppCompatActivity {
 			public boolean onMenuItemClick(MenuItem item) {
 				switch(item.getItemId()) {
 					case R.id.menu_item_refresh:
-						(new FetchRotationSchedule()).execute();
+						(new FetchRotationSchedule()).execute(true);
 						return true;
 					case R.id.menu_item_about:
 						startActivity(new Intent(ActivityMain.this, ActivityAbout.class));
@@ -113,31 +115,46 @@ public class ActivityMain extends AppCompatActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		stopTimer();
+		stopCountdownTimer();
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		(new FetchRotationSchedule()).execute();
+		(new FetchRotationSchedule()).execute(false);
 	}
 
 	/**
-	 * Stops the countdown update timer.
+	 * Stops the countdown update countdownTimer.
 	 */
-	public void stopTimer() {
-		if(timer != null) {
-			timer.cancel();
-			timer = null;
+	public void stopCountdownTimer() {
+		if(countdownTimer != null) {
+			countdownTimer.cancel();
+			countdownTimer = null;
 		}
 	}
 
 	/**
-	 * Resumes the countdown update timer.
+	 * Resumes the countdown update countdownTimer.
 	 */
-	public void resumeTimer() {
-		timer = new Timer();
-		timer.schedule(new UpdateCountdownTimerTask(), 0, TIMER_UPDATE_INTERVAL);
+	public void resumeCountdownTimer() {
+		countdownTimer = new Timer();
+		countdownTimer.schedule(new UpdateCountdownTimerTask(), 0, TIMER_UPDATE_INTERVAL);
+	}
+
+	public void stopRefreshTimer() {
+		if(refreshTimer != null) {
+			refreshTimer.cancel();
+			refreshTimer = null;
+		}
+	}
+
+	/**
+	 * Resumes the countdown update countdownTimer.
+	 */
+	public void startRefreshTimer(long delay) {
+		refreshTimer = new Timer();
+		refreshTimer.schedule(new RefreshScheduleTimerTask(), delay);
 	}
 
 	/**
@@ -193,29 +210,23 @@ public class ActivityMain extends AppCompatActivity {
 	}
 
 	/**
-	 * A timer task that updates the countdown timer until the next planned stage rotation.
+	 * A countdownTimer task that updates the countdown timer until the next planned stage rotation.
 	 */
 	private class UpdateCountdownTimerTask extends TimerTask {
 
 		@Override
 		public void run() {
-			if(schedule == null || schedule.getEndTime() < System.currentTimeMillis()) {
-				ActivityMain.this.runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						// Run this on UI thread because it updates the view
-						(new FetchRotationSchedule()).execute();
-					}
-				});
-
-				return;
-			}
-
 			ActivityMain.this.runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
 					// Calculate the hours/minutes/seconds until the next map rotation
-					long millisToEnd = schedule.getEndTime() - System.currentTimeMillis();
+					long millisToEnd = schedule.getTimeUntilEnd();
+
+					if(millisToEnd < 0) {
+						countdown.setText(String.format("%02d:%02d:%02d", 0, 0, 0));
+						stopCountdownTimer();
+						return;
+					}
 
 					int seconds = (int) (millisToEnd / 1000) % 60;
 					int minutes = (int) ((millisToEnd / (1000 * 60)) % 60);
@@ -228,29 +239,61 @@ public class ActivityMain extends AppCompatActivity {
 		}
 	}
 
+	private class RefreshScheduleTimerTask extends TimerTask {
+
+		@Override
+		public void run() {
+			ActivityMain.this.runOnUiThread(new Runnable() {
+
+				@Override
+				public void run() {
+					// Run this on UI thread because it updates the view
+					(new FetchRotationSchedule()).execute(false);
+				}
+
+			});
+		}
+	}
+
 	/**
 	 * Fetches the freshest (current) stage rotation schedule.
 	 */
-	private class FetchRotationSchedule extends AsyncTask<Void, Void, List<Schedule>> {
+	private class FetchRotationSchedule extends AsyncTask<Boolean, Void, List<Schedule>> {
 
 		private Exception e;
+		private boolean wasUserTriggered;
 
 		@Override
-		protected List<Schedule> doInBackground(Void... params) {
+		protected void onPreExecute() {
+			stopCountdownTimer();
+			stopRefreshTimer();
+
+			progressSpinner.setVisibility(View.VISIBLE);
+		}
+
+		@Override
+		protected List<Schedule> doInBackground(Boolean... params) {
 			try {
-				return StageRotationUpdater.getFreshestData(getApplicationContext());
+				wasUserTriggered = params[0];
+				List<Schedule> schedules = StageRotationUpdater.getFreshestData(getApplicationContext());
+
+				if(!wasUserTriggered) {
+					if(schedules == null || (!schedules.isEmpty() && schedules.get(0).getTimeUntilEnd() < 0)) {
+						// If we're here, that means we successfully fetched data but the schedules are still outdated.
+						// Woopsies.
+
+						// Set the timer to retry in 5 seconds
+						startRefreshTimer(5000);
+					}
+				}
+
+				return schedules;
 			} catch(Exception e) {
 				e.printStackTrace();
 
 				this.e = e;
 				return null;
 			}
-		}
-
-		@Override
-		protected void onPreExecute() {
-			stopTimer();
-			progressSpinner.setVisibility(View.VISIBLE);
 		}
 
 		@Override
@@ -272,14 +315,25 @@ public class ActivityMain extends AppCompatActivity {
 				return;
 			}
 
-			// Update the schedule in the fragments, resume the countdown timer
-			schedule = schedules.get(0);
+			if(schedules.get(0).getTimeUntilEnd() > 0) {
+				// Display the current schedule
+				schedule = schedules.get(0);
+			} else {
+				// Display the *next* schedule, we'll try to fetch the fresher version as soon as possible
+				schedule = schedules.get(1);
+			}
 
+			// Update the fragments
 			fragmentRegularBattles.updateSchedule(schedule);
 			fragmentRankedBattles.updateSchedule(schedule);
 
+			// Set a timer that will refresh the data once the gig is up
+			if(schedule.getTimeUntilEnd() > 0) {
+				startRefreshTimer(schedule.getTimeUntilEnd());
+			}
+
 			progressSpinner.setVisibility(View.INVISIBLE);
-			resumeTimer();
+			resumeCountdownTimer();
 		}
 
 	}

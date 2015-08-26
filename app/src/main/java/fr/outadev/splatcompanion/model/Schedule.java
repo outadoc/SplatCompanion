@@ -68,4 +68,9 @@ public class Schedule implements Serializable {
 	public void setRankedMode(GameModeRanked rankedMode) {
 		this.rankedMode = rankedMode;
 	}
+
+	public long getTimeUntilEnd() {
+		return endTime - System.currentTimeMillis();
+	}
+
 }
