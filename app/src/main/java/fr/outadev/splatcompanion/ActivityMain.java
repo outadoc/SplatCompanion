@@ -200,8 +200,14 @@ public class ActivityMain extends AppCompatActivity {
 		@Override
 		public void run() {
 			if(schedule == null || schedule.getEndTime() < System.currentTimeMillis()) {
-				(new FetchRotationSchedule()).execute();
-				stopTimer();
+				ActivityMain.this.runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						// Run this on UI thread because it updates the view
+						(new FetchRotationSchedule()).execute();
+					}
+				});
+
 				return;
 			}
 

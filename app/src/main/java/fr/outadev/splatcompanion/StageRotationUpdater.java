@@ -141,6 +141,7 @@ public class StageRotationUpdater {
 			schedule.setRankedMode(ranked);
 
 			schedules.add(schedule);
+			//schedule.setEndTime(System.currentTimeMillis() + 5000); // testing
 		}
 
 		return schedules;
