@@ -45,7 +45,7 @@ public abstract class StageFactory {
 			case "FLOUNDER HEIGHTS":
 				return new Stage(R.string.stage_flounder_heights, R.drawable.stage_flounder_heights);
 			case "HAMMERHEAD BRIDGE":
-				return new Stage(R.string.stage_hammerhead_bridge, R.drawable.stage_unknown);
+				return new Stage(R.string.stage_hammerhead_bridge, R.drawable.stage_hammerhead_bridge);
 			case "KELP DOME":
 				return new Stage(R.string.stage_kelp_dome, R.drawable.stage_kelp_dome);
 			case "MORAY TOWERS":
