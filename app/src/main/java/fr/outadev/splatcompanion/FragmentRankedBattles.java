@@ -37,7 +37,7 @@ public class FragmentRankedBattles extends FragmentRotationSchedule {
 		View view = super.onCreateView(inflater, container, savedInstanceState);
 
 		if(schedule == null) {
-			txtGameMode.setText(R.string.mode_ranked);
+			txtGameMode.setText(R.string.unknown);
 		}
 
 		return view;
@@ -51,6 +51,11 @@ public class FragmentRankedBattles extends FragmentRotationSchedule {
 	@Override
 	protected void displaySchedule() {
 		super.displaySchedule();
+		if(schedule == null || schedule.getRankedMode() == null || schedule.getRankedMode().getGameRules() == null) {
+			txtGameMode.setText(R.string.unknown);
+			return;
+		}
+
 		txtGameMode.setText(schedule.getRankedMode().getGameRules().getNameResId());
 	}
 }

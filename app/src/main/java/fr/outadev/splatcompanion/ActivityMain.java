@@ -116,6 +116,7 @@ public class ActivityMain extends AppCompatActivity {
 	protected void onPause() {
 		super.onPause();
 		stopCountdownTimer();
+		stopRefreshTimer();
 	}
 
 	@Override
@@ -310,17 +311,19 @@ public class ActivityMain extends AppCompatActivity {
 
 			// If there are no schedules (probably during a splatfest), we display a notice to the user
 			if(schedules.isEmpty()) {
-				displayErrorMessage(getString(R.string.error_no_stages_title),
-						getString(R.string.error_no_stages_message));
+				displayErrorMessage(getString(R.string.error_no_stages_title), getString(R.string.error_no_stages_message));
 				return;
 			}
 
 			if(schedules.get(0).getTimeUntilEnd() > 0) {
 				// Display the current schedule
 				schedule = schedules.get(0);
-			} else {
+			} else if(schedules.size() > 1) {
 				// Display the *next* schedule, we'll try to fetch the fresher version as soon as possible
 				schedule = schedules.get(1);
+			} else {
+				displayErrorMessage(getString(R.string.error_no_stages_title), getString(R.string.error_no_stages_message));
+				return;
 			}
 
 			// Update the fragments
