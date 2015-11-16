@@ -36,6 +36,7 @@
 	<string name="stage_saltspray_rig">Plataforma Gaviota</string>
 	<string name="stage_urchin_underpass">Parque Viaducto</string>
 	<string name="stage_walleye_warehouse">Almacén Rodaballo</string>
+	<string name="stage_museum_dalfonsino">Museo del Pargo</string>
 
 	<string name="mode_regular">Combate Amistoso</string>
 	<string name="mode_ranked">Combate Competitivo</string>

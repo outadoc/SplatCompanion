@@ -36,6 +36,7 @@
 	<string name="stage_saltspray_rig">Raffineria</string>
 	<string name="stage_urchin_underpass">Periferia Urbana</string>
 	<string name="stage_walleye_warehouse">Magazzino</string>
+	<string name="stage_museum_dalfonsino">Museo di Cefalò</string>
 
 	<string name="mode_regular">Partita Amichevole</string>
 	<string name="mode_ranked">Partita Pro</string>

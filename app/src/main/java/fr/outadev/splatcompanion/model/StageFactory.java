@@ -58,6 +58,8 @@ public abstract class StageFactory {
 				return new Stage(R.string.stage_urchin_underpass, R.drawable.stage_urchin_underpass);
 			case "WALLEYE WAREHOUSE":
 				return new Stage(R.string.stage_walleye_warehouse, R.drawable.stage_walleye_warehouse);
+			case "MUSEUM D'ALFONSINO":
+				return new Stage(R.string.stage_museum_dalfonsino, R.drawable.stage_museum_dalfonsino);
 			default:
 				return new Stage(R.string.unknown, R.drawable.stage_unknown);
 		}
