@@ -18,6 +18,7 @@
 
 package fr.outadev.splatcompanion.model;
 
+import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 
@@ -28,30 +29,45 @@ import java.io.Serializable;
  */
 public class Stage implements Serializable {
 
-	private
-	@StringRes int nameResId;
+	private String fallbackName;
 
 	private
-	@DrawableRes int previewResId;
+	@StringRes Integer nameResId;
+
+	private
+	@DrawableRes Integer previewResId;
+
+	Stage() {
+		this.fallbackName = null;
+		this.nameResId = null;
+		this.previewResId = null;
+	}
 
 	Stage(@StringRes int nameResId, @DrawableRes int previewResId) {
+		this();
 		this.nameResId = nameResId;
 		this.previewResId = previewResId;
 	}
 
-	public int getNameResId() {
+	Stage(String fallbackName, @DrawableRes int previewResId) {
+		this();
+		this.fallbackName = fallbackName;
+		this.previewResId = previewResId;
+	}
+
+	private int getNameResId() {
 		return nameResId;
 	}
 
-	public void setNameResId(int nameResId) {
-		this.nameResId = nameResId;
+	public String getNameRes(Context context) {
+		if (nameResId != null) {
+			return context.getResources().getString(getNameResId());
+		} else {
+			return fallbackName;
+		}
 	}
 
 	public int getPreviewResId() {
 		return previewResId;
-	}
-
-	public void setPreviewResId(int previewResId) {
-		this.previewResId = previewResId;
 	}
 }
