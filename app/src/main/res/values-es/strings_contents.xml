@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Splat Companion - Stage rotation schedule viewer for Splatoon(tm)
-  ~ Copyright (C) 2015  Baptiste Candellier
+  ~ Copyright (C) 2015 - 2016  Baptiste Candellier
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -39,6 +39,7 @@
 	<string name="stage_museum_dalfonsino">Museo del Pargo</string>
 	<string name="stage_mahi_mahi_resort">Spa-cala Bacalao</string>
 	<string name="stage_piranha_pit">Cantera Tintorera</string>
+	<string name="stage_ancho_v_games">Estudios Esturión</string>
 
 	<string name="mode_regular">Combate Amistoso</string>
 	<string name="mode_ranked">Combate Competitivo</string>

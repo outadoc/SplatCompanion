@@ -1,6 +1,6 @@
 /*
  * Splat Companion - Stage rotation schedule viewer for Splatoon(tm)
- * Copyright (C) 2015  Baptiste Candellier
+ * Copyright (C) 2015 - 2016  Baptiste Candellier
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,6 +64,8 @@ public abstract class StageFactory {
 				return new Stage(R.string.stage_mahi_mahi_resort, R.drawable.stage_mahi_mahi_resort);
 			case "PIRANHA PIT":
 				return new Stage(R.string.stage_piranha_pit, R.drawable.stage_piranha_pit);
+			case "ANCHO-V GAMES":
+				return new Stage(R.string.stage_ancho_v_games, R.drawable.stage_ancho_v_games);
 			default:
 				return new Stage(stageName.trim(), R.drawable.stage_unknown);
 		}
