@@ -21,7 +21,7 @@ package fr.outadev.splatcompanion.model;
 import android.support.annotation.NonNull;
 
 /**
- * Created by outadoc on 2016-02-20.
+ * A factory to create game modes easily.
  */
 public abstract class GameModeFactory {
 

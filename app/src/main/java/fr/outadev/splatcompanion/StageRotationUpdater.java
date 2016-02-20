@@ -147,6 +147,14 @@ public class StageRotationUpdater {
         return schedules;
     }
 
+    /**
+     * Parses a game mode with all its dependant properties.
+     *
+     * @param scheduleObject The JSON object to parse, containing the game mode
+     * @param gameModeId     The identifier of the game mode to parse. Typically "regular", "ranked"...
+     * @return The game mode
+     * @throws JSONException
+     */
     private static GameMode parseGameMode(JSONObject scheduleObject, String gameModeId)
             throws JSONException {
         GameMode gameMode = GameModeFactory.create(gameModeId);
@@ -191,6 +199,10 @@ public class StageRotationUpdater {
         return stages;
     }
 
+    /**
+     * Get the Splatfest teams for a JSON object containing teams
+     * "regular":{ "teams":[ "team 1", "team 2"...]...
+     */
     protected static List<String> parseTeams(JSONObject gameModeObject) throws JSONException {
         List<String> teams = new ArrayList<>(2);
 
