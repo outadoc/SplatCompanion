@@ -29,10 +29,13 @@ import java.util.List;
 public abstract class GameMode implements Serializable {
 
 	private Rules gameRules;
+
 	private List<Stage> stages;
+    private List<String> splatfestTeams;
 
 	public GameMode() {
 		this.stages = new ArrayList<>();
+        this.splatfestTeams = new ArrayList<>(2);
 	}
 
 	public abstract int getNameResId();
@@ -51,5 +54,11 @@ public abstract class GameMode implements Serializable {
 		this.gameRules = gameRules;
 	}
 
+    public List<String> getSplatfestTeams() {
+        return splatfestTeams;
+    }
 
+    public void setSplatfestTeams(List<String> splatfestTeams) {
+        this.splatfestTeams = splatfestTeams;
+    }
 }

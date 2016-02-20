@@ -49,139 +49,152 @@ import fr.outadev.splatcompanion.model.StageFactory;
  */
 public class StageRotationUpdater {
 
-	public static final String SCHEDULE_ENDPOINT_URL = "https://splatoon.ink/schedule.json";
-	public static final String KEY_LAST_CACHED_DATA = "cached_response_schedule";
+    public static final String SCHEDULE_ENDPOINT_URL = "https://splatoon.ink/schedule.json";
+    public static final String KEY_LAST_CACHED_DATA = "cached_response_schedule";
 
-	protected static final OkHttpClient client = new OkHttpClient();
+    protected static final OkHttpClient client = new OkHttpClient();
 
-	/**
-	 * Fetches the freshest schedules available (from cache or from the API).
-	 *
-	 * @param context A context
-	 * @return A list of schedules containing the data
-	 *
-	 * @throws IOException
-	 * @throws JSONException
-	 */
-	public static List<Schedule> getFreshestData(Context context) throws IOException, JSONException {
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-		String cache = prefs.getString(KEY_LAST_CACHED_DATA, null);
+    /**
+     * Fetches the freshest schedules available (from cache or from the API).
+     *
+     * @param context A context
+     * @return A list of schedules containing the data
+     * @throws IOException
+     * @throws JSONException
+     */
+    public static List<Schedule> getFreshestData(Context context) throws IOException, JSONException {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String cache = prefs.getString(KEY_LAST_CACHED_DATA, null);
 
-		if(cache != null) {
-			try {
-				List<Schedule> cachedSchedules = parseSchedules(cache);
+        if (cache != null) {
+            try {
+                List<Schedule> cachedSchedules = parseSchedules(cache);
 
-				// If the cached schedules aren't empty
-				if(cachedSchedules != null && !cachedSchedules.isEmpty()) {
+                // If the cached schedules aren't empty
+                if (cachedSchedules != null && !cachedSchedules.isEmpty()) {
 
-					// If the cached schedules are still fresh
-					if(cachedSchedules.get(0).getEndTime() > System.currentTimeMillis()) {
-						Log.d(StageRotationUpdater.class.getName(), "Using cached data");
-						return cachedSchedules;
-					}
-				}
-			} catch(JSONException e) {
-				e.printStackTrace();
-			}
-		}
+                    // If the cached schedules are still fresh
+                    if (cachedSchedules.get(0).getEndTime() > System.currentTimeMillis()) {
+                        Log.d(StageRotationUpdater.class.getName(), "Using cached data");
+                        return cachedSchedules;
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
 
-		Log.d(StageRotationUpdater.class.getName(), "Fetching fresh data");
+        Log.d(StageRotationUpdater.class.getName(), "Fetching fresh data");
 
-		String freshData = getScheduleDataFromAPI();
-		prefs.edit()
-				.putString(KEY_LAST_CACHED_DATA, freshData)
-				.apply();
+        String freshData = getScheduleDataFromAPI();
+        prefs.edit()
+                .putString(KEY_LAST_CACHED_DATA, freshData)
+                .apply();
 
-		return parseSchedules(freshData);
-	}
+        return parseSchedules(freshData);
+    }
 
-	/**
-	 * Retrieves the freshest schedule from the API
-	 * @return The raw response from the API
-	 * @throws IOException
-	 */
-	protected static String getScheduleDataFromAPI() throws IOException {
-		Request request = new Request.Builder()
-				.url(SCHEDULE_ENDPOINT_URL)
-				.build();
+    /**
+     * Retrieves the freshest schedule from the API
+     *
+     * @return The raw response from the API
+     * @throws IOException
+     */
+    protected static String getScheduleDataFromAPI() throws IOException {
+        Request request = new Request.Builder()
+                .url(SCHEDULE_ENDPOINT_URL)
+                .build();
 
-		Response response = client.newCall(request).execute();
-		return response.body().string();
-	}
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
 
-	/**
-	 * Parses the schedules of the current and next Splatoon map rotations.
-	 * This method parses the JSON data and creates the required objects corresponding to the data.
-	 *
-	 * @param rawJson The raw JSON data returned by the API
-	 * @return A list of schedules containing the parsed data
-	 * @throws JSONException
-	 */
-	protected static List<Schedule> parseSchedules(String rawJson) throws JSONException {
-		List<Schedule> schedules = new ArrayList<>();
-		boolean isSplatfesting = false;
+    /**
+     * Parses the schedules of the current and next Splatoon map rotations.
+     * This method parses the JSON data and creates the required objects corresponding to the data.
+     *
+     * @param rawJson The raw JSON data returned by the API
+     * @return A list of schedules containing the parsed data
+     * @throws JSONException
+     */
+    protected static List<Schedule> parseSchedules(String rawJson) throws JSONException {
+        List<Schedule> schedules = new ArrayList<>();
+        boolean isSplatfesting = false;
 
-		JSONObject baseObject = new JSONObject(rawJson);
-		JSONArray scheduleArray = baseObject.getJSONArray("schedule");
+        JSONObject baseObject = new JSONObject(rawJson);
+        JSONArray scheduleArray = baseObject.getJSONArray("schedule");
 
-		if (baseObject.has("splatfest") && baseObject.getBoolean("splatfest")) {
-			isSplatfesting = true;
-		}
+        if (baseObject.has("splatfest") && baseObject.getBoolean("splatfest")) {
+            isSplatfesting = true;
+        }
 
-		// For each schedule in the array
-		for(int i = 0; i < scheduleArray.length(); i++) {
-			JSONObject scheduleObject = scheduleArray.getJSONObject(i);
-			Schedule schedule = new Schedule(scheduleObject.getLong("startTime"), scheduleObject.getLong("endTime"));
+        // For each schedule in the array
+        for (int i = 0; i < scheduleArray.length(); i++) {
+            JSONObject scheduleObject = scheduleArray.getJSONObject(i);
+            Schedule schedule = new Schedule(scheduleObject.getLong("startTime"), scheduleObject.getLong("endTime"));
 
-			// Parse Regular game mode
-			schedule.setRegularMode((GameModeRegular) parseGameMode(scheduleObject, "regular"));
+            // Parse Regular game mode
+            schedule.setRegularMode((GameModeRegular) parseGameMode(scheduleObject, "regular"));
 
-			// Parse Ranked game mode
-			schedule.setRankedMode((GameModeRanked) parseGameMode(scheduleObject, "ranked"));
+            // Parse Ranked game mode
+            schedule.setRankedMode((GameModeRanked) parseGameMode(scheduleObject, "ranked"));
 
-			schedule.setSplatfesting(isSplatfesting);
-			schedules.add(schedule);
-			//schedule.setEndTime(System.currentTimeMillis() + 5000); // testing
-		}
+            schedule.setSplatfesting(isSplatfesting);
+            schedules.add(schedule);
+            //schedule.setEndTime(System.currentTimeMillis() + 5000); // testing
+        }
 
-		return schedules;
-	}
+        return schedules;
+    }
 
-	private static GameMode parseGameMode(JSONObject scheduleObject, String gameModeId)
-			throws JSONException {
-		GameMode gameMode = GameModeFactory.create(gameModeId);
+    private static GameMode parseGameMode(JSONObject scheduleObject, String gameModeId)
+            throws JSONException {
+        GameMode gameMode = GameModeFactory.create(gameModeId);
 
-		if (gameMode == null)
-			return null;
+        if (gameMode == null) {
+            return null;
+        }
 
-		if(scheduleObject.has(gameModeId)) {
-			JSONObject gameModeObject = scheduleObject.getJSONObject(gameModeId);
+        if (scheduleObject.has(gameModeId)) {
+            JSONObject gameModeObject = scheduleObject.getJSONObject(gameModeId);
 
-			if (gameModeObject.has("rules") && gameModeObject.getJSONObject("rules").has("en")) {
-				gameMode.setGameRules(RulesFactory.create(gameModeObject.getJSONObject("rules").getString("en")));
-			}
+            if (gameModeObject.has("rules") && gameModeObject.getJSONObject("rules").has("en")) {
+                gameMode.setGameRules(RulesFactory.create(gameModeObject.getJSONObject("rules").getString("en")));
+            }
 
-			gameMode.getStages().addAll(parseStages(gameModeObject));
-		}
+            gameMode.getStages().addAll(parseStages(gameModeObject));
+            gameMode.getSplatfestTeams().addAll(parseTeams(gameModeObject));
+        }
 
-		return gameMode;
-	}
+        return gameMode;
+    }
 
-	/**
-	 * Get the stages for a JSON object containing maps
-	 * "regular":{ "maps":[{...
-	 */
-	protected static List<Stage> parseStages(JSONObject gameModeObject) throws JSONException {
-		List<Stage> stages = new ArrayList<>();
-		JSONArray mapsArray = gameModeObject.getJSONArray("maps");
+    /**
+     * Get the stages for a JSON object containing maps
+     * "regular":{ "maps":[{...
+     */
+    protected static List<Stage> parseStages(JSONObject gameModeObject) throws JSONException {
+        List<Stage> stages = new ArrayList<>();
+        JSONArray mapsArray = gameModeObject.getJSONArray("maps");
 
-		for(int i = 0; i < mapsArray.length(); i++) {
-			JSONObject mapObject = mapsArray.getJSONObject(i);
-			Stage stage = StageFactory.create(mapObject.getString("nameEN"));
-			stages.add(stage);
-		}
+        for (int i = 0; i < mapsArray.length(); i++) {
+            JSONObject mapObject = mapsArray.getJSONObject(i);
+            Stage stage = StageFactory.create(mapObject.getString("nameEN"));
+            stages.add(stage);
+        }
 
-		return stages;
-	}
+        return stages;
+    }
 
+    protected static List<String> parseTeams(JSONObject gameModeObject) throws JSONException {
+        List<String> teams = new ArrayList<>(2);
+        JSONArray teamsArray = gameModeObject.getJSONArray("teams");
+
+        for (int i = 0; i < teamsArray.length(); i++) {
+            String team = teamsArray.getString(i);
+            teams.add(team);
+        }
+
+        return teams;
+    }
 }
