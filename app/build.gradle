@@ -26,8 +26,8 @@ android {
         applicationId "fr.outadev.splatcompanion"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 11
-        versionName "1.1.6"
+        versionCode 12
+        versionName "1.2"
     }
 
     packagingOptions {
