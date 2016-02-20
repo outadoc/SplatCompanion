@@ -1,6 +1,6 @@
 /*
  * Splat Companion - Stage rotation schedule viewer for Splatoon(tm)
- * Copyright (C) 2015  Baptiste Candellier
+ * Copyright (C) 2015 - 2016  Baptiste Candellier
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -115,6 +115,13 @@ public abstract class FragmentRotationSchedule extends Fragment {
 			imgMapPreview.setImageResource(stage.getPreviewResId());
 			stagesContainer.addView(stageView);
 		}
+
+		if(schedule == null || getActiveMode() == null || getActiveMode().getGameRules() == null) {
+			txtGameMode.setText(R.string.unknown);
+			return;
+		}
+
+		txtGameMode.setText(getActiveMode().getGameRules().getNameResId());
 	}
 
 	/**

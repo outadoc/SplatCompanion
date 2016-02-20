@@ -1,6 +1,6 @@
 /*
  * Splat Companion - Stage rotation schedule viewer for Splatoon(tm)
- * Copyright (C) 2015  Baptiste Candellier
+ * Copyright (C) 2015 - 2016  Baptiste Candellier
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@ import java.util.List;
  */
 public abstract class GameMode implements Serializable {
 
+	private Rules gameRules;
 	private List<Stage> stages;
 
 	public GameMode() {
@@ -41,5 +42,14 @@ public abstract class GameMode implements Serializable {
 	public List<Stage> getStages() {
 		return stages;
 	}
+
+	public Rules getGameRules() {
+		return gameRules;
+	}
+
+	public void setGameRules(Rules gameRules) {
+		this.gameRules = gameRules;
+	}
+
 
 }

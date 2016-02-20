@@ -1,6 +1,6 @@
 /*
  * Splat Companion - Stage rotation schedule viewer for Splatoon(tm)
- * Copyright (C) 2015  Baptiste Candellier
+ * Copyright (C) 2015 - 2016  Baptiste Candellier
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,6 +35,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.outadev.splatcompanion.model.GameMode;
+import fr.outadev.splatcompanion.model.GameModeFactory;
 import fr.outadev.splatcompanion.model.GameModeRanked;
 import fr.outadev.splatcompanion.model.GameModeRegular;
 import fr.outadev.splatcompanion.model.RulesFactory;
@@ -117,9 +119,14 @@ public class StageRotationUpdater {
 	 */
 	protected static List<Schedule> parseSchedules(String rawJson) throws JSONException {
 		List<Schedule> schedules = new ArrayList<>();
+		boolean isSplatfesting = false;
 
 		JSONObject baseObject = new JSONObject(rawJson);
 		JSONArray scheduleArray = baseObject.getJSONArray("schedule");
+
+		if (baseObject.has("splatfest") && baseObject.getBoolean("splatfest")) {
+			isSplatfesting = true;
+		}
 
 		// For each schedule in the array
 		for(int i = 0; i < scheduleArray.length(); i++) {
@@ -127,24 +134,37 @@ public class StageRotationUpdater {
 			Schedule schedule = new Schedule(scheduleObject.getLong("startTime"), scheduleObject.getLong("endTime"));
 
 			// Parse Regular game mode
-			GameModeRegular regular = new GameModeRegular();
-			regular.getStages().addAll(parseStages(scheduleObject.getJSONObject("regular")));
+			schedule.setRegularMode((GameModeRegular) parseGameMode(scheduleObject, "regular"));
 
 			// Parse Ranked game mode
-			JSONObject rankedObject = scheduleObject.getJSONObject("ranked");
+			schedule.setRankedMode((GameModeRanked) parseGameMode(scheduleObject, "ranked"));
 
-			GameModeRanked ranked = new GameModeRanked();
-			ranked.setGameRules(RulesFactory.create(rankedObject.getString("rulesEN")));
-			ranked.getStages().addAll(parseStages(rankedObject));
-
-			schedule.setRegularMode(regular);
-			schedule.setRankedMode(ranked);
-
+			schedule.setSplatfesting(isSplatfesting);
 			schedules.add(schedule);
 			//schedule.setEndTime(System.currentTimeMillis() + 5000); // testing
 		}
 
 		return schedules;
+	}
+
+	private static GameMode parseGameMode(JSONObject scheduleObject, String gameModeId)
+			throws JSONException {
+		GameMode gameMode = GameModeFactory.create(gameModeId);
+
+		if (gameMode == null)
+			return null;
+
+		if(scheduleObject.has(gameModeId)) {
+			JSONObject gameModeObject = scheduleObject.getJSONObject(gameModeId);
+
+			if (gameModeObject.has("rules") && gameModeObject.getJSONObject("rules").has("en")) {
+				gameMode.setGameRules(RulesFactory.create(gameModeObject.getJSONObject("rules").getString("en")));
+			}
+
+			gameMode.getStages().addAll(parseStages(gameModeObject));
+		}
+
+		return gameMode;
 	}
 
 	/**

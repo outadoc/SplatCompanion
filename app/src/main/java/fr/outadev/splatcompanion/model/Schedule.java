@@ -1,6 +1,6 @@
 /*
  * Splat Companion - Stage rotation schedule viewer for Splatoon(tm)
- * Copyright (C) 2015  Baptiste Candellier
+ * Copyright (C) 2015 - 2016  Baptiste Candellier
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,6 +31,8 @@ public class Schedule implements Serializable {
 
 	private GameModeRegular regularMode;
 	private GameModeRanked rankedMode;
+
+	private boolean isSplatfesting = false;
 
 	public Schedule(long startTime, long endTime) {
 		this.startTime = startTime;
@@ -73,4 +75,11 @@ public class Schedule implements Serializable {
 		return endTime - System.currentTimeMillis();
 	}
 
+	public boolean isSplatfesting() {
+		return isSplatfesting;
+	}
+
+	public void setSplatfesting(boolean splatfesting) {
+		isSplatfesting = splatfesting;
+	}
 }

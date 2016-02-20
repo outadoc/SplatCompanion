@@ -1,6 +1,6 @@
 /*
  * Splat Companion - Stage rotation schedule viewer for Splatoon(tm)
- * Copyright (C) 2015  Baptiste Candellier
+ * Copyright (C) 2015 - 2016  Baptiste Candellier
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,16 +46,5 @@ public class FragmentRankedBattles extends FragmentRotationSchedule {
 	@Override
 	protected GameMode getActiveMode() {
 		return schedule.getRankedMode();
-	}
-
-	@Override
-	protected void displaySchedule() {
-		super.displaySchedule();
-		if(schedule == null || schedule.getRankedMode() == null || schedule.getRankedMode().getGameRules() == null) {
-			txtGameMode.setText(R.string.unknown);
-			return;
-		}
-
-		txtGameMode.setText(schedule.getRankedMode().getGameRules().getNameResId());
 	}
 }

@@ -16,31 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package fr.outadev.splatcompanion;
+package fr.outadev.splatcompanion.model;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import fr.outadev.splatcompanion.model.GameMode;
+import android.support.annotation.NonNull;
 
 /**
- * Created by outadoc on 21/08/15.
+ * Created by outadoc on 2016-02-20.
  */
-public class FragmentRegularBattles extends FragmentRotationSchedule {
+public abstract class GameModeFactory {
 
-	@Nullable
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = super.onCreateView(inflater, container, savedInstanceState);
-		txtGameMode.setText(R.string.rules_turf_war);
-		return view;
-	}
+    public static GameMode create(@NonNull String gameMode) {
+        switch(gameMode.trim().toUpperCase()) {
+            case "REGULAR":
+                return new GameModeRegular();
+            case "RANKED":
+                return new GameModeRanked();
+            default:
+                return null;
+        }
+    }
 
-	@Override
-	protected GameMode getActiveMode() {
-		return schedule.getRegularMode();
-	}
 }
