@@ -1,6 +1,6 @@
 <!--
   ~ Splat Companion - Stage rotation schedule viewer for Splatoon(tm)
-  ~ Copyright (C) 2015  Baptiste Candellier
+  ~ Copyright (C) 2015 - 2016  Baptiste Candellier
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 
 	<string name="error">Error</string>
 	<string name="error_no_stages_title">Can\'t get current stages</string>
-	<string name="error_no_stages_message">We couldn\'t get the current stages right now. Maybe there\'s a Splatfest going on?</string>
+	<string name="error_no_stages_message">We couldn\'t get the current stages right now. Please try again later.</string>
 	<string name="error_generic_network_message">Error while retrieving the current stages.</string>
 	<string name="countdown_timer_default" translatable="false">--:--:--</string>
 	<string name="countdown_title">Next rotation in</string>
