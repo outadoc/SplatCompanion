@@ -175,6 +175,11 @@ public class StageRotationUpdater {
      */
     protected static List<Stage> parseStages(JSONObject gameModeObject) throws JSONException {
         List<Stage> stages = new ArrayList<>();
+
+        if (!gameModeObject.has("maps")) {
+            return stages;
+        }
+
         JSONArray mapsArray = gameModeObject.getJSONArray("maps");
 
         for (int i = 0; i < mapsArray.length(); i++) {
@@ -188,6 +193,11 @@ public class StageRotationUpdater {
 
     protected static List<String> parseTeams(JSONObject gameModeObject) throws JSONException {
         List<String> teams = new ArrayList<>(2);
+
+        if (!gameModeObject.has("teams")) {
+            return teams;
+        }
+
         JSONArray teamsArray = gameModeObject.getJSONArray("teams");
 
         for (int i = 0; i < teamsArray.length(); i++) {
